@@ -1,0 +1,127 @@
+# Get a list of history
+
+- Endpoint path: /history
+- Endpoint method: GET
+- Headers:
+  - Authorization: Bearer token?
+- Response: A list of playlist history
+- Response shape:
+
+```json
+{
+    "history": [
+        {
+            "date":
+            "weather":
+            "playlist":
+        }
+    ]
+}
+```
+
+# Create a weather
+
+- Endpoint path: /weather
+- Endpoint method: POST
+- Headers:
+  - Authorization: Bearer token
+- Response: Weather
+- Response shape:
+
+```json
+{
+    "weather": [
+        {
+            "picture_url":
+            "name":
+        }
+    ]
+}
+```
+
+# Update a weather
+
+- Endpoint path: /weather/<int:id>
+- Endpoint method: PUT
+- Headers:
+  - Authorization: Bearer token
+- Response: Weather
+- Response shape:
+
+```json
+{
+    "weather": [
+        {
+            "date":
+            "weather":
+            "playlist":
+        }
+    ]
+}
+```
+
+# Log in
+
+- Endpoint path: /token
+- Endpoint method: POST
+
+- Request shape (form):
+
+  - username: string
+  - password: string
+
+- Response: Account information and a token
+- Response shape (JSON):
+  ```json
+  {
+    "account": {
+      «key»: type»,
+    },
+    "token": string
+  }
+  ```
+
+# Log out
+
+- Endpoint path: /token
+- Endpoint method: DELETE
+
+- Headers:
+
+  - Authorization: Bearer token
+
+- Response: Always true
+- Response shape (JSON):
+  ```json
+  true
+  ```
+
+# Delete a playlist
+
+- Endpoint path: /history/<int:id>
+- Endpoint method: Delete
+
+- Headers:
+  - Authorization: Bearer token
+- Response: A playlist was deleted
+- Response shape (JSON):
+
+```json
+{
+   "history": [
+       {
+           "date":
+           "weather":
+           "playlist":
+       }
+   ]
+}
+```
+
+```
+
+```
+
+```
+
+```

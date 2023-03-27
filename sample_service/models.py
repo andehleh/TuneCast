@@ -11,3 +11,5 @@ class Thing(ThingParams):
 
 class ThingsList(BaseModel):
     things: list[Thing]
+
+

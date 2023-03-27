@@ -1,5 +1,24 @@
-# volumes:
+volumes:
+  mongo-data:
+    external: true
 services:
+  mongo:
+    image: mongo:6
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+  mongo-express:
+    image: mongo-express:latest
+    depends_on:
+      - mongo
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_MONGODB_URL: mongodb://admin:password@mongo:27017/
   fastapi:
     build:
       context: sample_service
@@ -8,7 +27,8 @@ services:
       - 8000:8000
     volumes:
       - ./sample_service:/app
-      
+    environment:
+      MONGO_URL: mongodb://admin:password@mongo
   ghi:
     image: node:lts-bullseye
     command: /bin/bash run.sh
@@ -23,4 +43,3 @@ services:
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
       REACT_APP_SAMPLE_SERVICE_API_HOST: http://localhost:8000
-            

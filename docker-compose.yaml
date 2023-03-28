@@ -28,6 +28,7 @@ services:
     volumes:
       - ./sample_service:/app
     environment:
+      SIGNING_KEY: ${SIGNING_KEY}
       MONGO_URL: mongodb://admin:password@mongo
   ghi:
     image: node:lts-bullseye

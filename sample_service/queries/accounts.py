@@ -1,28 +1,26 @@
-# from pydantic import BaseModel
-# from .client import Queries
-
-# class DuplicateAccountError(ValueError):
-#     pass
+from bson.objectid import ObjectId
+from queries.client import Queries
+from models import AccountIn, AccountOutWithHashedPassword
 
 
-# class AccountIn(BaseModel):
-#     email: str
-#     password: str
-#     full_name: str
+class DuplicateAccountError(Exception):
+    pass
 
+class AccountsRepo(Queries):
+    COLLECTION = 'accounts'
 
-# class AccountOut(BaseModel):
-#     id: str
-#     email: str
-#     full_name: str
+    def create(self, info:AccountIn, hashed_password: str):
+        account = info.dict()
+        account['hashed_password'] = hashed_password
+        if self.get(account['username']):
+            raise DuplicateAccountError
+        self.collection.insert_one(account)
+        account['id'] = str(account['_id'])
+        return AccountOutWithHashedPassword(**account)
 
-
-# class AccountOutWithPassword(AccountOut):
-#     hashed_password: str
-
-
-# class AccountQueries(Queries):
-
-#     def get(self, email, str) -> AccountOutWithPassword:
-
-#     def create(self, info: AccountIn, hashed_password: str) -> AccountOutWithPassword:
+    def get(self, username: str):
+        result = self.collection.find_one({"username": username})
+        if result is None:
+            return None
+        result['id'] = str(result['_id'])
+        return AccountOutWithHashedPassword(**result)

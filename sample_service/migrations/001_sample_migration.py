@@ -2,37 +2,42 @@ steps = [
     [
         # "Up" SQL statement
         """
-        CREATE TABLE dummy (
+        CREATE TABLE weather (
             id SERIAL PRIMARY KEY NOT NULL,
-            required_limited_text VARCHAR(1000) NOT NULL,
-            required_unlimited_text TEXT NOT NULL,
-            required_date_time TIMESTAMP NOT NULL,
-            automatically_set_date_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            required_integer INTEGER NOT NULL,
-            required_money MONEY NOT NULL
+            picture_url VARCHAR(1000) NOT NULL,
+            name VARCHAR(100) NOT NULL,
         );
         """,
         # "Down" SQL statement
         """
-        DROP TABLE dummy;
+        DROP TABLE weather;
         """
     ],
     [
         # "Up" SQL statement
         """
-        CREATE TABLE big_dummy (
+        CREATE TABLE history (
             id SERIAL PRIMARY KEY NOT NULL,
-            required_limited_text VARCHAR(1000) NOT NULL,
-            required_unlimited_text TEXT NOT NULL,
-            required_date_time TIMESTAMP NOT NULL,
-            automatically_set_date_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            required_integer INTEGER NOT NULL,
-            required_money MONEY NOT NULL
+            date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            weather SMALLINT NOT NULL, (maybe use id?)
+            playlist VARCHAR(1000) NOT NULL, (url maybe?)
         );
         """,
         # "Down" SQL statement
         """
-        DROP TABLE big_dummy;
+        DROP TABLE history;
         """
+    ]
+    [
+        """
+        CREATE TABLE accounts (
+            id SERIAL PRIMARY KEY NOT NULL,
+            username VARCHAR(200) UNIQUE NOT NULL,
+            hashed_password VARCHAR(200) NOT NULL,
+        );
+        """,
+        """
+        DROP TABLE accounts;
+        """,
     ]
 ]

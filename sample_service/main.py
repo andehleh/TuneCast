@@ -6,7 +6,7 @@ from routers import accounts
 
 app = FastAPI()
 app.include_router(authenticator.router)
-app.include(accounts.router)
+app.include_router(accounts.router)
 
 app.add_middleware(
     CORSMiddleware,

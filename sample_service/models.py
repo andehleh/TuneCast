@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from jwtdown_fastapi.authentication import Token
+from typing import List
 
 
 
@@ -20,6 +21,9 @@ class AccountForm(BaseModel):
 
 class AccountToken(Token):
     account: AccountOut
+
+class AccountList(BaseModel):
+    accounts: List[AccountOutWithHashedPassword]
 
 
 class ThingParams(BaseModel):

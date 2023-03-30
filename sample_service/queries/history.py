@@ -10,9 +10,9 @@ class HistoryRepo(Queries):
         history['id'] = str(history['_id'])
         return HistoryOut(**history)
 
-    def get_all(self):
+    def get_all(self, user_id: str):
         history = []
-        for h in self.collection.find():
+        for h in self.collection.find({"user_id": user_id}):
             h['id'] = str(h['_id'])
             history.append(HistoryOut(**h))
         return history

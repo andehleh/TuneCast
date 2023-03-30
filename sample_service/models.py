@@ -54,6 +54,7 @@ class HistoryIn(BaseModel):
     date: str
     weather: str
     playlist: str
+    user_id: str
 
 class HistoryOut(HistoryIn):
     id: str

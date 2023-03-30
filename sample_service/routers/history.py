@@ -1,16 +1,17 @@
 from fastapi import APIRouter, Depends
 from models import HistoryIn, HistoryOut
 from queries.history import HistoryRepo
+from authenticator import authenticator
 
 
 router = APIRouter()
 
-@router.post('/api/history/')
-async def create_history( info: HistoryIn, repo: HistoryRepo = Depends(),):
-    history = repo.create(info)
-    return {
-        "history": repo.get_all()
-}
+@router.post('/api/history/', response_model = HistoryOut)
+async def create_history( info: HistoryIn, repo: HistoryRepo = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)):
+    history = repo.create(info, user_id = account_data["id"])
+    # print("******", account_data)
+    return history
+
 
 
 @router.get('/api/history/')

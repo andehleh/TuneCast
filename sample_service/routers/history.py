@@ -6,18 +6,10 @@ from queries.history import HistoryRepo
 router = APIRouter()
 
 @router.post('/api/history/')
-async def create_history( history: HistoryIn, repo: HistoryRepo = Depends(),):
-    # print("******************************", repo.get_all())
+async def create_history( info: HistoryIn, repo: HistoryRepo = Depends(),):
+    history = repo.create(info)
     return {
         "history": repo.get_all()
-    # "history": [
-    #     {
-    #         "date": history.date,
-    #         "weather": history.weather,
-    #         "playlist": history.playlist,
-
-    #     }
-    # ]
 }
 
 

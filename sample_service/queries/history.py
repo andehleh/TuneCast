@@ -7,13 +7,12 @@ class HistoryRepo(Queries):
     def create(self, info:HistoryIn) -> HistoryOut:
         history = info.dict()
         self.collection.insert_one(history)
-        # history['id'] = str(history['_id'])
+        history['id'] = str(history['_id'])
         return HistoryOut(**history)
 
     def get_all(self):
         history = []
         for h in self.collection.find():
-            print("************************", h)
             h['id'] = str(h['_id'])
             history.append(HistoryOut(**h))
         return history

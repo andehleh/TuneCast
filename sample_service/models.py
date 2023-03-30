@@ -49,3 +49,11 @@ class WeatherIn(BaseModel):
 
 class WeatherList(BaseModel):
     weather: List[WeatherIn]
+
+class HistoryIn(BaseModel):
+    date: str
+    weather: str
+    playlist: str
+
+class HistoryOut(HistoryIn):
+    id: str

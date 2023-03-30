@@ -50,6 +50,11 @@ class WeatherIn(BaseModel):
 class WeatherList(BaseModel):
     weather: List[WeatherIn]
 
+
+class WeatherOut(WeatherIn):
+    id: str
+
+
 class HistoryIn(BaseModel):
     date: str
     weather: str

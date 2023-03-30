@@ -19,8 +19,8 @@ steps = [
         CREATE TABLE history (
             id SERIAL PRIMARY KEY NOT NULL,
             date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            weather SMALLINT NOT NULL, (maybe use id?)
-            playlist VARCHAR(1000) NOT NULL, (url maybe?)
+            weather SMALLINT NOT NULL,
+            playlist VARCHAR(1000) NOT NULL,
         );
         """,
         # "Down" SQL statement

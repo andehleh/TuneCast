@@ -8,3 +8,6 @@ worked on setting up mongoDB and fastapi
 
 ### 3/28/23
 created migrations and started working on authentication
+
+### 3/29/23
+watched fastapi videos to refresh on endpoints. Started work on endipoints

@@ -1,6 +1,7 @@
 from bson.objectid import ObjectId
 from queries.client import Queries
-from models import AccountIn, AccountOutWithHashedPassword
+from models import AccountIn, AccountOutWithHashedPassword, AccountOut
+# from typing import List
 
 
 class DuplicateAccountError(Exception):
@@ -24,3 +25,18 @@ class AccountsRepo(Queries):
             return None
         result['id'] = str(result['_id'])
         return AccountOutWithHashedPassword(**result)
+
+    def get_all(self):
+        accounts = []
+        for account in self.collection.find():
+            account['id'] = str(account['_id'])
+            accounts.append(AccountOutWithHashedPassword(**account))
+
+        return accounts
+
+    # def get_one(self, account_id: str):
+    #     result = self.collection.find_one({"id": account_id})
+    #     if result is None:
+    #         return None
+    #     # result['id'] = str(result['_id'])
+    #     return AccountOutWithHashedPassword(**result)

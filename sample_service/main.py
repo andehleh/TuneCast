@@ -2,12 +2,14 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from authenticator import authenticator
-from routers import accounts, history
+from routers import accounts, history, weather
 
 app = FastAPI()
-app.include_router(authenticator.router)
-app.include_router(accounts.router)
-app.include_router(history.router)
+app.include_router(accounts.router, tags=['Accounts'])
+app.include_router(history.router, tags=['History'])
+app.include_router(authenticator.router, tags=['Authentication'])
+app.include_router(weather.router, tags=['Weather'])
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,15 +22,15 @@ app.add_middleware(
 )
 
 
-@app.get("/api/launch-details")
-def launch_details():
-    return {
-        "launch_details": {
-            "year": 2022,
-            "month": 12,
-            "day": "9",
-            "hour": 19,
-            "min": 0,
-            "tz:": "PST"
-        }
-    }
+# @app.get("/api/launch-details")
+# def launch_details():
+#     return {
+#         "launch_details": {
+#             "year": 2022,
+#             "month": 12,
+#             "day": "9",
+#             "hour": 19,
+#             "min": 0,
+#             "tz:": "PST"
+#         }
+#     }

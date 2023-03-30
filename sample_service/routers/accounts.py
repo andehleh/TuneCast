@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Response, Depends, Request, HTTPException, status
-from models import AccountIn, AccountForm, AccountToken, AccountOut
+from models import AccountIn, AccountForm, AccountToken, AccountOut, AccountList
 from queries.accounts import AccountsRepo, DuplicateAccountError
 from authenticator import authenticator
+from typing import List
 
 router = APIRouter()
 
@@ -36,3 +37,18 @@ async def get_token(
             "type": "Bearer",
             "account": account,
         }
+
+# @router.get('/api/accounts/{account_id}')
+# def get_one_account(
+#     account_id: str,
+#     repo: AccountOut = Depends()
+# ) -> AccountOut:
+#     return repo.get_one(account_id)
+
+@router.get('/api/accounts/', response_model=AccountList)
+def get_all(
+    repo: AccountsRepo = Depends(),
+):
+    return {
+        "accounts": repo.get_all()
+    }

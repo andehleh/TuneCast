@@ -11,3 +11,6 @@ created migrations and started working on authentication
 
 ### 3/29/23
 watched fastapi videos to refresh on endpoints. Started work on endipoints
+
+### 3/30/23
+worked on creating endpoints for history and started to add authentication to it but struggled

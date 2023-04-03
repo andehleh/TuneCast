@@ -14,3 +14,6 @@ watched fastapi videos to refresh on endpoints. Started work on endipoints
 
 ### 3/30/23
 worked on creating endpoints for history and started to add authentication to it but struggled
+
+## 04/03/23
+added authentication to history endpoints, created playlist endpoints, finished weather endpoints. Backend is working!

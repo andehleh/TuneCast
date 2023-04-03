@@ -67,3 +67,11 @@ class HistoryOut(HistoryIn):
 
 class HistoryList(BaseModel):
     history: List[HistoryOut]
+
+class Playlist(BaseModel):
+    url: str
+    name: str
+    weather: str
+
+class PlaylistOut(Playlist):
+    id: str

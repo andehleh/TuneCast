@@ -8,15 +8,16 @@ class WeatherRepo(Queries):
 
     def create(self, info: WeatherIn) -> WeatherOut:
         weather = info.dict()
+        
         self.collection.insert_one(weather)
         weather['id'] = str(weather['_id'])
-        return WeatherOut(weather)
+        return WeatherOut(**weather)
 
     def get_all(self) -> list[WeatherOut]:
         weather_list = []
         for weather in self.collection.find():
             weather['id'] = str(weather['_id'])
-            weather_list.append(WeatherOut(weather))
+            weather_list.append(WeatherOut(**weather))
         return weather_list
 
     def delete(self, id: str) -> bool:

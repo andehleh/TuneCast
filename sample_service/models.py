@@ -30,18 +30,6 @@ class AccountList(BaseModel):
     accounts: List[AccountOutWithHashedPassword]
 
 
-class ThingParams(BaseModel):
-    name: str
-
-
-class Thing(ThingParams):
-    id: str
-
-
-class ThingsList(BaseModel):
-    things: list[Thing]
-
-
 class WeatherIn(BaseModel):
     picture_url: str
     name: str

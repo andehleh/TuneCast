@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from models import HistoryIn, HistoryOut
+from models import HistoryIn, HistoryOut, HistoryList
 from queries.history import HistoryRepo
 from authenticator import authenticator
 
@@ -7,36 +7,31 @@ from authenticator import authenticator
 router = APIRouter()
 
 @router.post('/api/history/', response_model = HistoryOut)
-async def create_history( info: HistoryIn, repo: HistoryRepo = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)):
+async def create_history(
+    info: HistoryIn,
+    repo: HistoryRepo = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
+    ):
     history = repo.create(info, user_id = account_data["id"])
-    # print("******", account_data)
     return history
 
 
 
-@router.get('/api/history/')
-async def list_history(history: HistoryOut = Depends()):
+@router.get('/api/history/', response_model = HistoryList)
+async def list_history(
+    repo: HistoryRepo = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
+    ):
     return {
-    "history": [
-        {
-            "date": history.date,
-            "weather": history.weather,
-            "playlist": history.playlist,
-
-        }
-    ]
-}
+        "history": repo.get_all(user_id=account_data['id'])
+    }
 
 
-@router.delete('api/history/{id}')
-async def delete_history(id: int):
-    return {
-    "history": [
-        {
-            "date": "history.date",
-            "weather": "history.weather",
-            "playlist": "history.playlist",
-            "id": "history.id"
-        }
-    ]
-}
+@router.delete('/api/history/{history_id}')
+async def delete_history(
+    history_id: str,
+    repo: HistoryRepo = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
+    ):
+
+    return repo.delete(history_id, user_id=account_data['id'])

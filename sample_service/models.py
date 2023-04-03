@@ -47,12 +47,13 @@ class WeatherIn(BaseModel):
     name: str
 
 
-class WeatherList(BaseModel):
-    weather: List[WeatherIn]
-
-
 class WeatherOut(WeatherIn):
     id: str
+
+class WeatherList(BaseModel):
+    weather: List[WeatherOut]
+
+
 
 
 class HistoryIn(BaseModel):

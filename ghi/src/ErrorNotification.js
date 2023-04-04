@@ -1,5 +1,3 @@
-import React from "react";
-
 function ErrorNotification(props) {
   if (!props.error) {
     return null;

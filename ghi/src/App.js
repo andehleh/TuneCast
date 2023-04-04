@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import MainPage from "./MainPage";
+import MainPage from "./components/MainPage";
 import "./App.css";
 
 function App() {

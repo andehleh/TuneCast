@@ -1,13 +1,11 @@
-function ErrorNotification(props) {
-    if (!props.error) {
-        return null;
-    }
+import React from "react";
 
-    return (
-        <div className="notification is-danger">
-            {props.error}
-        </div>
-    );
+function ErrorNotification(props) {
+  if (!props.error) {
+    return null;
+  }
+
+  return <div className="notification is-danger">{props.error}</div>;
 }
 
 export default ErrorNotification;

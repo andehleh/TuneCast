@@ -1,6 +1,7 @@
-function Construct(props) {
+import React from "react";
 
-    const pad2 = num => String(num).padStart(2, '0');
+function Construct(props) {
+  const pad2 = (num) => String(num).padStart(2, "0");
 
     return (
         <div className="App">

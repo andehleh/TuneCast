@@ -9,3 +9,7 @@ We tried to figure out how to obtain the data from the api. Consulted with Riley
 ## 3/27/23
 
 We tried to follow along with Curtis' video doing authentication but we still couldn't figure out how to get it working. We decided that we needed to see tomorrows lecture to figure out the missing pieces of our authentication. We also worked a little bit on the SQL tables in the migrations folder.
+
+## 3/29/23
+
+Started trying to figure out the API endpoint for our history feature.

@@ -9,14 +9,7 @@ const LoginForm = () => {
   const navigate = useNavigate()
 
   const handleSubmit = (e) => {
-    // let promise = new Promise(function(resolve, reject) {
-    //   reject ("Whoops!");
-    // });
-    //   .catch((errors) => {
-    //     console.log(errors)
-    //   })
     e.preventDefault();
-    console.log("*******************", e)
     login(username, password);
     navigate('/');
   };

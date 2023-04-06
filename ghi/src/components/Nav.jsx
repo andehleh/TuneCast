@@ -28,7 +28,9 @@ function Nav() {
                </ul>
             </nav>
          </div>
-
+         <div>
+            <NavLink to='/'>Home</NavLink>
+         </div>
          <div className="order-2 md:order-3 flex flex-wrap items-center justify-end mr-0 md:mr-4" id="nav-content">
             <div className="auth flex items-center w-full md:w-full">
                <div>
@@ -36,6 +38,7 @@ function Nav() {
                </div>
                <div>
                   {!token && <NavLink to='/login' className='k-button k-flat'>Login</NavLink>}
+                  {!token && <NavLink to='/signup' className='k-button k-flat'>Sign Up</NavLink>}
                   {token && <NavLink to='/' onClick={handleSubmit} className='k-button k-flat'>Logout</NavLink>}
                </div>
                {/* <NavLink to='/signup' className='k-button k-flat'>SignUp</NavLink> */}

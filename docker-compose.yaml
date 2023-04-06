@@ -43,5 +43,4 @@ services:
       NODE_ENV: development
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
-      REACT_APP_TUNECAST_API_HOST: http://localhost:8000
-      SIGNING_KEY: ${FRONTEND_SIGNING_KEY}
+      REACT_APP_USER_SERVICE_API_HOST: http://localhost:8000

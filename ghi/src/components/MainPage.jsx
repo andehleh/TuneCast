@@ -1,22 +1,23 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const MainPage = () => {
 
   const [weather, setWeather] = useState([]);
 
   async function getData() {
-    const resp = await fetch("http://localhost:8000/api/weather/");
+    const url = "http://localhost:8000/api/weather/"
+    const resp = await fetch(url);
+
     if (resp.ok) {
       const data = await resp.json();
       console.log(data.weather)
       setWeather(data.weather);
-      console.log(weather)
+
     }
   }
 
   useEffect(() => {
     getData();
-    console.log(weather)
   }, []);
 
 
@@ -27,11 +28,13 @@ const MainPage = () => {
         <div className="col-lg-6 mx-auto">
           <p className="lead mb-4">Weather-Based Playlist Generator!</p>
           <div>
+            {console.log("Weather: ", weather)}
             <select>
-              <option>Sunny</option>
-              <option>Rainy</option>
-              <option>Cloudy</option>
-              <option>Snowy</option>
+              {weather.map(w => {
+                return (
+                  <option key={w.id}>{w.name}</option>
+                )
+              })}
             </select>
           </div>
           <div>

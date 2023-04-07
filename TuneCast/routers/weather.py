@@ -92,15 +92,3 @@ async def list_weather(
     return {
         "weather": repo.get_all()
     }
-
-
-@router.get('/api/weather/')
-async def list_weather(weather: WeatherOut = Depends()):
-    return {
-    "weather": [
-        {
-            "picture_url": weather.picture_url,
-            "name": weather.name,
-        }
-    ]
-}

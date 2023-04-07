@@ -8,7 +8,6 @@ function Nav() {
    const handleSubmit = (e) => {
       e.preventDefault();
       logout()
-      // e.target.reset();
    }
 
     return(
@@ -33,15 +32,12 @@ function Nav() {
          </div>
          <div className="order-2 md:order-3 flex flex-wrap items-center justify-end mr-0 md:mr-4" id="nav-content">
             <div className="auth flex items-center w-full md:w-full">
-               <div>
+               <div className="flex space-x-2">
                   {token && <NavLink to='/history/' className='k-button k-flat'>History</NavLink>}
-               </div>
-               <div>
                   {!token && <NavLink to='/login' className='k-button k-flat'>Login</NavLink>}
                   {!token && <NavLink to='/signup' className='k-button k-flat'>Sign Up</NavLink>}
                   {token && <NavLink to='/' onClick={handleSubmit} className='k-button k-flat'>Logout</NavLink>}
                </div>
-               {/* <NavLink to='/signup' className='k-button k-flat'>SignUp</NavLink> */}
             </div>
          </div>
       </div>

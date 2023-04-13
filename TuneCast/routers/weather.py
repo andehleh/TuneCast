@@ -6,17 +6,6 @@ from queries.weather import WeatherRepo
 router = APIRouter()
 
 
-# @router.post('/api/weather/')
-# async def create_weather(weather: WeatherIn):
-#     return {
-#         "weather": [
-#             {
-#                 "picture_url": weather.picture_url,
-#                 "name": weather.name,
-#             }
-#         ]
-#     }
-
 @router.post('/api/weather/', response_model=WeatherOut)
 async def create_weather(
     info: WeatherIn,
@@ -28,16 +17,7 @@ async def create_weather(
 
 
 
-# @router.put('/api/weather/{id}')
-# async def update_weather(id: int, weather: WeatherIn):
-#     return {
-#         "weather": [
-#             {
-#                 "picture_url": weather.picture_url,
-#                 "name": weather.name,
-#             }
-#         ]
-#     }
+
 
 
 @router.put('/api/weather/{id}')
@@ -50,16 +30,7 @@ async def update_weather(
     return repo.update(weather_id, info)
 
 
-# @router.delete('/api/weather/{id}')
-# async def delete_weather(id: int, weather: WeatherOut):
-#     return {
-#         "weather": [
-#             {
-#                 "picture_url": weather.picture_url,
-#                 "name": weather.name,
-#             }
-#         ]
-#     }
+
 
 
 @router.delete('/api/weather/{id}')
@@ -72,16 +43,6 @@ async def delete_weather(
 
 
 
-# @router.get('/api/weather/')
-# async def list_weather(weather: WeatherOut = Depends()):
-#     return {
-#     "weather": [
-#         {
-#             "picture_url": weather.picture_url,
-#             "name": weather.name,
-#         }
-#     ]
-# }
 
 
 @router.get('/api/weather/', response_model=WeatherList)
@@ -92,3 +53,12 @@ async def list_weather(
     return {
         "weather": repo.get_all()
     }
+
+
+@router.post('/api/weather/playlists/')
+async def create_weather_playlist(
+    weather_name: str,
+    playlist_url: str,
+    repo: WeatherRepo = Depends(),
+):
+    return repo.create_playlist(weather_name, playlist_url)

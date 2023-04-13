@@ -1,5 +1,5 @@
 from queries.client import Queries
-from models import WeatherIn, WeatherOut
+from models import WeatherIn, WeatherOut, Playlist
 from bson.objectid import ObjectId
 
 
@@ -23,3 +23,8 @@ class WeatherRepo(Queries):
     def delete(self, id: str) -> bool:
         result = self.collection.delete_one({'_id': ObjectId(id)})
         return result.deleted_count == 1
+    
+    def create_playlist(self, weather_name: str, playlist_url: str) -> Playlist:
+        playlist = Playlist(url=playlist_url, weather=weather_name)
+        self.collection.insert_one(playlist.dict())
+        return playlist

@@ -4,7 +4,7 @@ from bson import ObjectId
 
 
 
-class PlaylistQueries(Queries):
+class PlaylistRepo(Queries):
     COLLECTION = 'playlist'
 
     def create(self, info:Playlist):

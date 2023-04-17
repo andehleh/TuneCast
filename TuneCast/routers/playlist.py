@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from models import Playlist, PlaylistOut
-from queries.playlist import PlaylistQueries
+from queries.playlist import PlaylistRepo
 
 router = APIRouter()
 
@@ -8,7 +8,7 @@ router = APIRouter()
 @router.post('/api/playlist/', response_model= PlaylistOut)
 def create_playlist(
     info: Playlist,
-    repo: PlaylistQueries = Depends()
+    repo: PlaylistRepo = Depends()
     ):
     playlist = repo.create(info)
     return playlist
@@ -16,12 +16,12 @@ def create_playlist(
 @router.delete('/api/playlist/{id}')
 def delete_playlist(
     id: str,
-    repo: PlaylistQueries = Depends()
+    repo: PlaylistRepo = Depends()
     ):
     return repo.delete(id)
 
 @router.get('/api/playlist/')
-def list_playlist(repo: PlaylistQueries = Depends()):
+def list_playlist(repo: PlaylistRepo = Depends()):
     return {
         "playlist": repo.get_all()
     }

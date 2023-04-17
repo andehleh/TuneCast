@@ -3,15 +3,20 @@ import React, { useState, useEffect } from "react";
 const MainPage = () => {
   const [weather, setWeather] = useState([]);
   const [currentWeather, setCurrentWeather] = useState("");
-  const [playlist, setPlaylist] = useState("");
+  const [currentPlaylist, setCurrentPlaylist] = useState("");
+  const [playlists, setPlaylists] = useState([]);
 
   async function getData() {
-    const url = "http://localhost:8000/api/weather/";
-    const resp = await fetch(url);
+    const weatherUrl = "http://localhost:8000/api/weather/";
+    const playlistUrl = "http://localhost:8000/api/playlist/";
+    const weatherResp = await fetch(weatherUrl);
+    const playlistResp = await fetch(playlistUrl);
 
-    if (resp.ok) {
-      const data = await resp.json();
-      setWeather(data.weather);
+    if (weatherResp.ok && playlistResp.ok) {
+      const weatherData = await weatherResp.json();
+      const playlistData = await playlistResp.json();
+      setWeather(weatherData.weather);
+      setPlaylists(playlistData.playlist);
     }
   }
 
@@ -20,34 +25,27 @@ const MainPage = () => {
   }, []);
 
   const handleChange = (e) => {
-    console.log(e.target.value);
-    setCurrentWeather(e.target.value);
-    // update selected playlist based on chosen weather condition
-    switch (e.target.value) {
-      case "Rainy":
-        setPlaylist(
-          "https://open.spotify.com/embed/playlist/37i9dQZF1DWZeKCadgRdKQ"
-        );
-        break;
-      case "Sunny":
-        setPlaylist(
-          "https://open.spotify.com/embed/playlist/37i9dQZF1DX6z20IXmBjWI"
-        );
-        break;
-      case "Cloudy":
-        setPlaylist(
-          "https://open.spotify.com/embed/playlist/37i9dQZF1DX4wta20PHgwo"
-        );
-        break;
-      case "Snowy":
-        setPlaylist(
-          "https://open.spotify.com/embed/playlist/12iJPEljO246xXZuGVqyaB?si=4dc60c88200849de"
-        );
-        break;
-      default:
-        setPlaylist("");
-        break;
+    const weather = e.target.value
+    setCurrentWeather(weather);
+
+    const findPlaylist = (w) => {
+      playlists.map((playlist) => {
+        if (playlist.weather === w){
+          setCurrentPlaylist(playlist.url)
+        }
+      })
     }
+    findPlaylist(e.target.value)
+
+    // update selected playlist based on chosen weather condition
+    // switch (weather) {
+    //   case weather:
+    //     setCurrentPlaylist(weather);
+    //     break;
+    //   default:
+    //     setCurrentPlaylist("");
+    //     break;
+    // }
   };
 
   return (
@@ -68,18 +66,18 @@ const MainPage = () => {
                 );
               })}
             </select>
-            {playlist !== "" && (
-              <iframe
-                style={{ borderRadius: "12px" }}
-                src={`${playlist}?utm_source=generator&theme=0`}
-                width="100%"
-                height="352"
-                frameBorder="0"
-                allowFullScreen=""
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-              ></iframe>
-            )}
+                {currentPlaylist !== "" && (
+                  <iframe
+                    style={{ borderRadius: "12px", margin:'0 25%'}}
+                    src={`${currentPlaylist}?utm_source=generator&theme=0`}
+                    width="50%"
+                    height="352"
+                    frameBorder="0"
+                    allowFullScreen=""
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                  ></iframe>
+                )}
           </div>
         </div>
       </div>

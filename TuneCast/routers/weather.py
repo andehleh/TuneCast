@@ -20,14 +20,14 @@ async def create_weather(
 
 
 
-@router.put('/api/weather/{id}')
-async def update_weather(
-    weather_id: str,
-    info: WeatherIn,
-    repo: WeatherRepo = Depends(),
-    # account_data: dict = Depends(authenticator.get_current_account_data)
-):
-    return repo.update(weather_id, info)
+# @router.put('/api/weather/{id}')
+# async def update_weather(
+#     weather_id: str,
+#     info: WeatherIn,
+#     repo: WeatherRepo = Depends(),
+#     # account_data: dict = Depends(authenticator.get_current_account_data)
+# ):
+#     return repo.update(weather_id, info)
 
 
 

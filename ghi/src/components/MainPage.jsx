@@ -59,6 +59,7 @@ const MainPage = () => {
           <div>
             <p>Current Weather: {currentWeather}</p>
             <select onChange={handleChange}>
+              <option value="">Select Your Weather</option>
               {weather.map((w) => {
                 return (
                   <option value={w.name} key={w.id}>

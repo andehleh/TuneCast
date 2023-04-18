@@ -76,3 +76,9 @@ class WeatherAPIOut(BaseModel):
 class OpenWeatherAPIOut(BaseModel):
     name: str
     weather: list
+
+class StateIn(BaseModel):
+    abr: str
+
+class StateOut(StateIn):
+    id: str

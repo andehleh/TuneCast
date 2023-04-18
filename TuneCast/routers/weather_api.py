@@ -11,7 +11,7 @@ def get_weather(
 ):
   return repo.get_current_weather(location)
 
-@router.get('/api/open_weather_api/', response_model=OpenWeatherAPIOut)
+@router.get('/api/open_weather_api/{city}/{state}/', response_model=OpenWeatherAPIOut)
 def get_weather(
     city: str,
     state: str,

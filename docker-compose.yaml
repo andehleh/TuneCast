@@ -28,8 +28,10 @@ services:
     volumes:
       - ./TuneCast:/app
     environment:
-      SIGNING_KEY: ${BACKEND_SIGNING_KEY}
+      SIGNING_KEY: ${SIGNING_KEY}
       MONGO_URL: mongodb://admin:password@mongo
+      MICRO_WEATHER_API_KEY: ${MICRO_WEATHER_API_KEY}
+      OPEN_WEATHER_API_KEY: ${OPEN_WEATHER_API_KEY}
   ghi:
     image: node:lts-bullseye
     command: /bin/bash run.sh

@@ -64,3 +64,15 @@ class Playlist(BaseModel):
 
 class PlaylistOut(Playlist):
     id: str
+
+class WeatherAPIOut(BaseModel):
+    location: str
+    local_time: str
+    temp_c: int
+    temp_f: int
+    condition: str
+
+
+class OpenWeatherAPIOut(BaseModel):
+    name: str
+    weather: list

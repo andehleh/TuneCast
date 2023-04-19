@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const MainPage = () => {
   // const [weather, setWeather] = useState([]);
-  // const [currentWeather, setCurrentWeather] = useState("");
+  const [currentWeather, setCurrentWeather] = useState({});
   const [currentPlaylist, setCurrentPlaylist] = useState("");
   const [playlists, setPlaylists] = useState([]);
   const [stateAbr, setStateAbr] = useState([]);
@@ -36,7 +36,6 @@ const MainPage = () => {
   const handleCity = (e) => {
     const city = e.target.value
     setCurrentCity(city);
-    console.log(city)
     // const weather = e.target.value
     // setCurrentWeather(weather);
 
@@ -62,17 +61,17 @@ const MainPage = () => {
 
   const handleState = (e) => {
     const state = e.target.value;
-    setCurrentCity(state);
-    console.log(state);
+    setCurrentStateAbr(state);
   }
 
   const handleClick = async (e) => {
     e.preventDefault()
-    const weatherUrl = "http://localhost:8000/api/open_weather_api/";
-    const params = {"city": currentCity, "state": currentStateAbr}
-    const response = await fetch(weatherUrl, {body:params})
-    console.log(response)
-    return ""
+    const weatherUrl = `http://localhost:8000/api/open_weather_api/${currentCity}/${currentStateAbr}`;
+    const response = await fetch(weatherUrl)
+    if (response.ok) {
+      const data = await response.json()
+      setCurrentWeather(data)
+    }
   };
 
   return (

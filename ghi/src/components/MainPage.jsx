@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 const MainPage = () => {
   // const [weather, setWeather] = useState([]);
@@ -48,15 +48,7 @@ const MainPage = () => {
     // }
     // findPlaylist(e.target.value)
 
-    // update selected playlist based on chosen weather condition
-    // switch (weather) {
-    //   case weather:
-    //     setCurrentPlaylist(weather);
-    //     break;
-    //   default:
-    //     setCurrentPlaylist("");
-    //     break;
-    // }
+
   };
 
   const handleState = (e) => {
@@ -71,8 +63,51 @@ const MainPage = () => {
     if (response.ok) {
       const data = await response.json()
       setCurrentWeather(data)
+
+      // let weather = data['weather'][0]['main']
+      // console.log(e.target.value)
+
+      // update selected playlist based on chosen weather condition
+    //   switch (weather) {
+    //     case "Clouds":
+    //       setCurrentPlaylist(weather);
+    //       break;
+    //     default:
+    //       setCurrentPlaylist("");
+    //       break;
+    //   }
     }
   };
+
+  for (let playlist of playlists){
+    let defaultPlaylist = ""
+    if (playlist.weather === "Everything Else"){
+      defaultPlaylist = playlist.url
+    }
+  }
+
+  useEffect(() => {
+    console.log(currentWeather)
+    console.log(playlists)
+    try {
+      let weatherName = currentWeather['weather'][0]['main']
+      // const defaultPlaylist = playlists
+
+      const findPlaylist = (w) => {
+        playlists.map((playlist) => {
+          if (playlist.weather === w){
+            setCurrentPlaylist(playlist.url)
+          }
+
+        })
+      }
+      findPlaylist(weatherName)
+    }
+    catch(err) {
+      console.log("no current weather")
+    }
+    console.log("success")
+  }, [currentWeather, playlists])
 
   return (
     <>
@@ -81,7 +116,7 @@ const MainPage = () => {
         <div className="col-lg-6 mx-auto">
           <p className="lead mb-4">Weather-Based Playlist Generator!</p>
           <div>
-            {/* <p>Current Weather: {currentWeather}</p> */}
+            <p>Current Playlist: {currentPlaylist}</p>
             <input onChange={handleCity} type="text"></input>
             <select onChange={handleState}>
               <option value="">Select Your State</option>
@@ -96,8 +131,9 @@ const MainPage = () => {
             <button onClick={handleClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               Submit
             </button>
-            {/* {currentPlaylist !== "" && (
+            {currentPlaylist !== "" && (
                   <iframe
+                    title="Spotify Embedded Player"
                     style={{ borderRadius: "12px", margin:'0 25%'}}
                     src={`${currentPlaylist}?utm_source=generator&theme=0`}
                     width="50%"
@@ -106,8 +142,8 @@ const MainPage = () => {
                     allowFullScreen=""
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                     loading="lazy"
-                  ></iframe> */}
-            {/* )} */}
+                  ></iframe>
+            )}
           </div>
         </div>
       </div>

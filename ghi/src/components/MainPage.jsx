@@ -88,7 +88,6 @@ const MainPage = () => {
     for (let playlist of playlists){
       if (playlist.weather === "Everything Else"){
         defaultPlaylist+=playlist.url
-        console.log("@@@@@@@@@@@@@@@@", defaultPlaylist)
       }
     }
 
@@ -96,14 +95,15 @@ const MainPage = () => {
       let weatherName = currentWeather['weather'][0]['main']
 
       const findPlaylist = (w) => {
-        playlists.map((playlist) => {
+        for (let playlist of playlists){
           if (playlist.weather === w){
             setCurrentPlaylist(playlist.url)
-          } else {
+            break;
+          }
+          else {
             setCurrentPlaylist(defaultPlaylist)
           }
-
-        })
+        }
       }
       findPlaylist(weatherName)
     }

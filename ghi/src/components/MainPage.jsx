@@ -79,24 +79,28 @@ const MainPage = () => {
     }
   };
 
-  for (let playlist of playlists){
-    let defaultPlaylist = ""
-    if (playlist.weather === "Everything Else"){
-      defaultPlaylist = playlist.url
-    }
-  }
 
   useEffect(() => {
     console.log(currentWeather)
     console.log(playlists)
+
+    let defaultPlaylist = ""
+    for (let playlist of playlists){
+      if (playlist.weather === "Everything Else"){
+        defaultPlaylist+=playlist.url
+        console.log("@@@@@@@@@@@@@@@@", defaultPlaylist)
+      }
+    }
+
     try {
       let weatherName = currentWeather['weather'][0]['main']
-      // const defaultPlaylist = playlists
 
       const findPlaylist = (w) => {
         playlists.map((playlist) => {
           if (playlist.weather === w){
             setCurrentPlaylist(playlist.url)
+          } else {
+            setCurrentPlaylist(defaultPlaylist)
           }
 
         })
@@ -134,9 +138,9 @@ const MainPage = () => {
             {currentPlaylist !== "" && (
                   <iframe
                     title="Spotify Embedded Player"
-                    style={{ borderRadius: "12px", margin:'0 25%'}}
+                    style={{ borderRadius: "12px"}}
                     src={`${currentPlaylist}?utm_source=generator&theme=0`}
-                    width="50%"
+                    width="100%"
                     height="352"
                     frameBorder="0"
                     allowFullScreen=""

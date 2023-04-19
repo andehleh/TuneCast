@@ -4,6 +4,7 @@ import useToken from "@galvanize-inc/jwtdown-for-react"
 function Nav() {
    const { token } = useToken();
    const { logout } = useToken();
+   // const token = "string"
 
    const handleSubmit = (e) => {
       e.preventDefault();

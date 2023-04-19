@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect} from "react";
 
 const MainPage = () => {
   // const [weather, setWeather] = useState([]);
@@ -113,6 +113,10 @@ const MainPage = () => {
     console.log("success")
   }, [currentWeather, playlists])
 
+  const handleLocation = () => {
+
+  }
+
   return (
     <>
       <div className="px-4 py-5 my-5 text-center">
@@ -133,6 +137,9 @@ const MainPage = () => {
               })}
             </select>
             <button onClick={handleClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Submit
+            </button>
+            <button onClick={handleLocation} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               Submit
             </button>
             {currentPlaylist !== "" && (

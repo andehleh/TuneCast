@@ -5,7 +5,8 @@ function HistoryList() {
   const [history, setHistory] = useState([]);
   const { token, fetchWithToken } = useToken();
 
-  async function getData() {
+  useEffect(()=> {
+    async function getData() {
       if (token) {
         const resp = await fetchWithToken("http://localhost:8000/api/history/");
         if (resp) {
@@ -14,10 +15,8 @@ function HistoryList() {
         }
       };
     };
-
-  useEffect(()=> {
-      getData();
-  }, [token]);
+    getData();
+  }, [token, fetchWithToken]);
 
 
   return (<>

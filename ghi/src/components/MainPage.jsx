@@ -114,7 +114,7 @@ const MainPage = () => {
   }, [currentWeather, playlists])
 
   const handleLocation = () => {
-
+    // console.log("Navigator: ", navigator.geolocation.getCurrentPosition())
   }
 
   return (

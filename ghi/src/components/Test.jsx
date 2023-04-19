@@ -1,4 +1,9 @@
 import TweenMax from "gsap/TweenMax";
+import {Power0, Power1, Power2, Power4} from "gasp"
+import {$,jQuery,Snap} from 'jquery';
+
+window.$ = $;
+window.jQuery = jQuery;
 
 function Test() {
 
@@ -149,7 +154,7 @@ function Test() {
     })
 
     TweenMax.set(sunburst.node, {transformOrigin:"50% 50%", x: sizes.container.width / 2, y: (sizes.card.height/2) + sizes.card.offset.top});
-    TweenMax.fromTo(sunburst.node, 20, {rotation: 0}, {rotation: 360, repeat: -1, ease: Power0.easeInOut})
+    TweenMax.fromTo(sunburst.node, 20, {rotation: 0}, {rotation: 360, repeat: -1, ease:Power0.easeInOut})
     // 🍃 The leaf mask is for the leafs that float out of the
     // container, it is full window height and starts on the left
     // inline with the card

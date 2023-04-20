@@ -82,3 +82,7 @@ class StateIn(BaseModel):
 
 class StateOut(StateIn):
     id: str
+
+class Location(BaseModel):
+    city: str
+    principalSubdivision: str

@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from authenticator import authenticator
-from routers import accounts, history, weather, playlist, weather_api, state
+from routers import accounts, history, weather, playlist, weather_api, state, location
 
 app = FastAPI()
 
@@ -14,6 +14,7 @@ app.include_router(weather.router, tags=['Weather'])
 app.include_router(playlist.router, tags=['Playlist'])
 app.include_router(weather_api.router, tags=['Weather API'])
 app.include_router(state.router, tags=['State'])
+app.include_router(location.router, tags=['Location'])
 
 
 app.add_middleware(

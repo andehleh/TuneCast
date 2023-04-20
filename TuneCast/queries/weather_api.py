@@ -52,10 +52,10 @@ class OpenWeatherRepo:
 
 class OpenWeatherGeoRepo:
     url = "https://api.openweathermap.org/data/2.5/weather"
-    def get_current_weather(self, lon: str, lat: str):
+    def get_current_weather(self, lon: float, lat: float):
         weather_params = {
-            "lat": int(lat),
-            "lon": int(lon),
+            "lat": lat,
+            "lon": lon,
             "appid": OPEN_WEATHER_API_KEY,
             "units": "imperial",
         }

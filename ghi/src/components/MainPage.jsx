@@ -8,6 +8,8 @@ const MainPage = () => {
   const [stateAbr, setStateAbr] = useState([]);
   const [currentStateAbr, setCurrentStateAbr] = useState("");
   const [currentCity, setCurrentCity] = useState("")
+  const [currentCoords, setCurrentCoords] = useState()
+  const [currentLocation, setCurrentLocation] = useState()
 
 
 
@@ -82,7 +84,7 @@ const MainPage = () => {
 
   useEffect(() => {
     console.log("******************", currentWeather)
-    console.log(playlists)
+    // console.log(playlists)
 
     let defaultPlaylist = ""
     for (let playlist of playlists){
@@ -106,11 +108,12 @@ const MainPage = () => {
         }
       }
       findPlaylist(weatherName)
+      // setCurrentLocation()
     }
     catch(err) {
       console.log("no current weather")
     }
-    console.log("success")
+    // console.log("success")
   }, [currentWeather, playlists])
 
   const handleLocation = () => {
@@ -120,13 +123,31 @@ const MainPage = () => {
       maximumAge: 0,
     };
 
-    function success(pos) {
+    async function success(pos) {
       const crd = pos.coords;
-
+      const lonLat = {
+        "lon": crd.longitude,
+        "lat": crd.latitude
+      }
       console.log("Your current position is:");
-      console.log(`Latitude : ${typeof(crd.latitude)}`);
+      console.log(`Latitude : ${crd.latitude}`);
       console.log(`Longitude: ${crd.longitude}`);
       console.log(`More or less ${crd.accuracy} meters.`);
+      setCurrentCoords(lonLat)
+
+      const locationUrl = `http://localhost:8000/api/open_weather_api/${crd.longitude}_${crd.latitude}`;
+      const response = await fetch(locationUrl)
+        if (response.ok) {
+          const data = await response.json()
+          setCurrentWeather(data)
+        }
+      const currentLocationUrl = `http://localhost:8000/api/location/${crd.longitude}_${crd.latitude}`;
+      const currentLocationresponse = await fetch(currentLocationUrl)
+        if (currentLocationresponse.ok) {
+          const currentLocationData = await currentLocationresponse.json()
+          setCurrentLocation(currentLocationData)
+          console.log("CURRENT LOCATION: ", currentLocationData)
+        }
     }
 
     function error(err) {
@@ -144,6 +165,8 @@ const MainPage = () => {
           <p className="lead mb-4">Weather-Based Playlist Generator!</p>
           <div>
             <p>Current Playlist: {currentPlaylist}</p>
+            <p>Current Location: {currentLocation ? (`${currentLocation.city}, ${currentLocation.principalSubdivision}`): ""}</p>
+            <p>Current Coords: {currentCoords ? (`${currentCoords.lon}, ${currentCoords.lat}`): ""}</p>
             <input onChange={handleCity} type="text"></input>
             <select onChange={handleState}>
               <option value="">Select Your State</option>
@@ -159,7 +182,7 @@ const MainPage = () => {
               Submit
             </button>
             <button onClick={handleLocation} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Submit
+              Use Current Location
             </button>
             {currentPlaylist !== "" && (
                   <iframe

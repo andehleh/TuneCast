@@ -1,5 +1,5 @@
 import TweenMax from "gsap/TweenMax";
-import {Power0, Power1, Power2, Power4} from "gasp"
+import {Power0, Power1, Power2, Power4} from "gsap"
 import {$,jQuery,Snap} from 'jquery';
 
 window.$ = $;

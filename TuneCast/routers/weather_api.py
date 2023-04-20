@@ -21,8 +21,8 @@ def get_weather(
 
 @router.get('/api/open_weather_api/{lon}_{lat}/')
 def get_weather(
-    lon: str,
-    lat: str,
+    lon: float,
+    lat: float,
     repo: OpenWeatherGeoRepo = Depends()
 ):
   return repo.get_current_weather(lon, lat)

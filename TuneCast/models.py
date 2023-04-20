@@ -85,4 +85,4 @@ class StateOut(StateIn):
 
 class Location(BaseModel):
     city: str
-    principalSubdivision: str
+    principalSubdivisionCode: str

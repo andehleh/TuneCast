@@ -1,7 +1,6 @@
 import React, { useState, useEffect} from "react";
 
 const MainPage = () => {
-  // const [weather, setWeather] = useState([]);
   const [currentWeather, setCurrentWeather] = useState({});
   const [currentPlaylist, setCurrentPlaylist] = useState("");
   const [playlists, setPlaylists] = useState([]);
@@ -14,18 +13,14 @@ const MainPage = () => {
 
 
   async function getData() {
-    // const weatherUrl = "http://localhost:8000/api/weather/";
     const playlistUrl = "http://localhost:8000/api/playlist/";
     const stateUrl = "http://localhost:8000/api/state/";
-    // const weatherResp = await fetch(weatherUrl);
     const playlistResp = await fetch(playlistUrl);
     const stateResp = await fetch(stateUrl);
 
     if (stateResp.ok && playlistResp.ok) {
-      // const weatherData = await weatherResp.json();
       const playlistData = await playlistResp.json();
       const stateData = await stateResp.json();
-      // setWeather(weatherData.weather);
       setPlaylists(playlistData.playlist);
       setStateAbr(stateData.state)
     }
@@ -38,19 +33,6 @@ const MainPage = () => {
   const handleCity = (e) => {
     const city = e.target.value
     setCurrentCity(city);
-    // const weather = e.target.value
-    // setCurrentWeather(weather);
-
-    // const findPlaylist = (w) => {
-    //   playlists.map((playlist) => {
-    //     if (playlist.weather === w){
-    //       setCurrentPlaylist(playlist.url)
-    //     }
-    //   })
-    // }
-    // findPlaylist(e.target.value)
-
-
   };
 
   const handleState = (e) => {
@@ -64,26 +46,19 @@ const MainPage = () => {
     const response = await fetch(weatherUrl)
     if (response.ok) {
       const data = await response.json()
+      const location = {
+        "city": currentCity.toUpperCase(),
+        "principalSubdivisionCode": currentStateAbr
+      }
+      console.log("LOCATION: ", location)
       setCurrentWeather(data)
-
-      // let weather = data['weather'][0]['main']
-      // console.log(e.target.value)
-
-      // update selected playlist based on chosen weather condition
-    //   switch (weather) {
-    //     case "Clouds":
-    //       setCurrentPlaylist(weather);
-    //       break;
-    //     default:
-    //       setCurrentPlaylist("");
-    //       break;
-    //   }
+      setCurrentLocation(location)
     }
   };
 
 
   useEffect(() => {
-    console.log("******************", currentWeather)
+
     // console.log(playlists)
 
     let defaultPlaylist = ""
@@ -95,7 +70,7 @@ const MainPage = () => {
 
     try {
       let weatherName = currentWeather['weather'][0]['main']
-
+      console.log("******************", currentWeather['weather'][0]['main'])
       const findPlaylist = (w) => {
         for (let playlist of playlists){
           if (playlist.weather === w){
@@ -108,12 +83,10 @@ const MainPage = () => {
         }
       }
       findPlaylist(weatherName)
-      // setCurrentLocation()
     }
     catch(err) {
       console.log("no current weather")
     }
-    // console.log("success")
   }, [currentWeather, playlists])
 
   const handleLocation = () => {
@@ -145,8 +118,14 @@ const MainPage = () => {
       const currentLocationresponse = await fetch(currentLocationUrl)
         if (currentLocationresponse.ok) {
           const currentLocationData = await currentLocationresponse.json()
-          setCurrentLocation(currentLocationData)
-          console.log("CURRENT LOCATION: ", currentLocationData)
+          const cityUpper = currentLocationData['city'].toUpperCase()
+          const stateSlice = currentLocationData['principalSubdivisionCode'].slice(3)
+          const data = {
+            "city": cityUpper,
+            "principalSubdivisionCode": stateSlice
+          }
+          setCurrentLocation(data)
+          console.log("CURRENT LOCATION: ", data)
         }
     }
 
@@ -164,26 +143,28 @@ const MainPage = () => {
         <div className="col-lg-6 mx-auto">
           <p className="lead mb-4">Weather-Based Playlist Generator!</p>
           <div>
-            <p>Current Playlist: {currentPlaylist}</p>
-            <p>Current Location: {currentLocation ? (`${currentLocation.city}, ${currentLocation.principalSubdivision}`): ""}</p>
-            <p>Current Coords: {currentCoords ? (`${currentCoords.lon}, ${currentCoords.lat}`): ""}</p>
-            <input onChange={handleCity} type="text"></input>
-            <select onChange={handleState}>
-              <option value="">Select Your State</option>
-              {stateAbr.map((state) => {
-                return (
-                  <option value={state.abr} key={state.id}>
-                    {state.abr}
-                  </option>
-                );
-              })}
-            </select>
-            <button onClick={handleClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Submit
-            </button>
-            <button onClick={handleLocation} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Use Current Location
-            </button>
+            {currentLocation && (<p>Current Location: {currentLocation.city}, {currentLocation.principalSubdivisionCode}</p>)}
+
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" aria-label="Text input with dropdown button"/>
+              <select onChange={handleState} class="custom-select" id="inputGroupSelect03">
+                <option value="">Select Your State</option>
+                {stateAbr.map((state) => {
+                  return (
+                    <option value={state.abr} key={state.id}>
+                      {state.abr}
+                    </option>
+                  );
+                })}
+              </select>
+              <button onClick={handleClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Submit
+              </button>
+              <button onClick={handleLocation} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Use Current Location
+              </button>
+            </div>
+
             {currentPlaylist !== "" && (
                   <iframe
                     title="Spotify Embedded Player"
@@ -198,6 +179,7 @@ const MainPage = () => {
                   ></iframe>
             )}
           </div>
+          {currentPlaylist && <p>Current Playlist: {currentPlaylist}</p>}
         </div>
       </div>
     </>

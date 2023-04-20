@@ -81,7 +81,7 @@ const MainPage = () => {
 
 
   useEffect(() => {
-    console.log(currentWeather)
+    console.log("******************", currentWeather)
     console.log(playlists)
 
     let defaultPlaylist = ""
@@ -114,7 +114,26 @@ const MainPage = () => {
   }, [currentWeather, playlists])
 
   const handleLocation = () => {
-    // console.log("Navigator: ", navigator.geolocation.getCurrentPosition())
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
+
+    function success(pos) {
+      const crd = pos.coords;
+
+      console.log("Your current position is:");
+      console.log(`Latitude : ${typeof(crd.latitude)}`);
+      console.log(`Longitude: ${crd.longitude}`);
+      console.log(`More or less ${crd.accuracy} meters.`);
+    }
+
+    function error(err) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
   }
 
   return (

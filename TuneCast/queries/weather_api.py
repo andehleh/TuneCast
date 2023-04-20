@@ -43,7 +43,23 @@ class OpenWeatherRepo:
             "units": "imperial",
         }
         weather_res = requests.get(self.open_weather_url, params=weather_params)
+        print("************WEATHER", weather_res.json())
+        print("************LONLAT", weather_params['lat'], weather_params['lon'])
+        try:
+            return weather_res.json()
+        except (KeyError, IndexError):
+            return None
 
+class OpenWeatherGeoRepo:
+    url = "https://api.openweathermap.org/data/2.5/weather"
+    def get_current_weather(self, lon: str, lat: str):
+        weather_params = {
+            "lat": int(lat),
+            "lon": int(lon),
+            "appid": OPEN_WEATHER_API_KEY,
+            "units": "imperial",
+        }
+        weather_res = requests.get(self.url, params=weather_params)
         try:
             return weather_res.json()
         except (KeyError, IndexError):

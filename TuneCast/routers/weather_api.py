@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from models import WeatherAPIOut, OpenWeatherAPIOut
-from queries.weather_api import WeatherAPIRepo, OpenWeatherRepo
+from queries.weather_api import WeatherAPIRepo, OpenWeatherRepo, OpenWeatherGeoRepo
 
 router = APIRouter()
 
@@ -18,3 +18,11 @@ def get_weather(
     repo: OpenWeatherRepo = Depends()
 ):
   return repo.get_current_weather(city, state)
+
+@router.get('/api/open_weather_api/{lon}_{lat}/')
+def get_weather(
+    lon: str,
+    lat: str,
+    repo: OpenWeatherGeoRepo = Depends()
+):
+  return repo.get_current_weather(lon, lat)

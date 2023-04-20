@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
 const MainPage = () => {
   const [currentWeather, setCurrentWeather] = useState({});
@@ -9,6 +10,7 @@ const MainPage = () => {
   const [currentCity, setCurrentCity] = useState("");
   const [currentCoords, setCurrentCoords] = useState();
   const [currentLocation, setCurrentLocation] = useState();
+  const { token, fetchWithToken } = useToken();
 
   async function getData() {
     const playlistUrl = "http://localhost:8000/api/playlist/";
@@ -45,8 +47,8 @@ const MainPage = () => {
     if (response.ok) {
       const data = await response.json();
       const location = {
-        city: currentCity.toUpperCase(),
-        principalSubdivisionCode: currentStateAbr,
+        "city": currentCity.toUpperCase(),
+        "principalSubdivisionCode": currentStateAbr,
       };
       console.log("LOCATION: ", location);
       setCurrentWeather(data);
@@ -56,7 +58,7 @@ const MainPage = () => {
 
   useEffect( () => {
     (async() => {
-    const Url = "http://localhost:8000/api/history/";
+    const Url = "https://localhost:8000/api/history/";
     const historyData = {
       date: new Date().toLocaleDateString(),
       weather: "Cloudy",
@@ -69,10 +71,12 @@ const MainPage = () => {
         "Content-Type": "application/json",
       },
     };
-    const response = await fetch(Url, fetchConfig);
+    if (token) {
+    const response = await fetchWithToken(Url, fetchConfig);
     console.log("******************")
     if (response.ok) {
       console.log("History Saved");
+    }
     }}) ();
 
   }, [currentPlaylist]);

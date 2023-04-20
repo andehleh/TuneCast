@@ -4,6 +4,7 @@ import useToken from "@galvanize-inc/jwtdown-for-react"
 function HistoryList() {
   const [history, setHistory] = useState([]);
   const { token, fetchWithToken } = useToken();
+  const [search , setSearch] = useState("");
 
   useEffect(()=> {
     async function getData() {

@@ -146,7 +146,7 @@ const MainPage = () => {
             {currentLocation && (<p>Current Location: {currentLocation.city}, {currentLocation.principalSubdivisionCode}</p>)}
 
             <div className="input-group mb-3">
-              <input type="text" className="form-control" aria-label="Text input with dropdown button"/>
+              <input onChange={handleCity} type="text" className="form-control" aria-label="Text input with dropdown button"/>
               <select onChange={handleState} className="custom-select" id="inputGroupSelect03">
                 <option value="">Select Your State</option>
                 {stateAbr.map((state) => {

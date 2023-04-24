@@ -4,20 +4,24 @@ import useToken from "@galvanize-inc/jwtdown-for-react"
 function HistoryList() {
   const [history, setHistory] = useState([]);
   const { token, fetchWithToken } = useToken();
-  const [search , setSearch] = useState("");
+  // const [search , setSearch] = useState("");
+  const [isMounted, setIsMounted] = useState(true);
 
   useEffect(()=> {
     async function getData() {
       if (token) {
-        const resp = await fetchWithToken("http://localhost:8000/api/history/");
+        const resp = await fetchWithToken(`${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/history/`);
         if (resp) {
             const data = await resp;
-            setHistory(data.history);
+            if (isMounted){
+              setHistory(data.history);
+              setIsMounted(false);
+            }
         }
       };
     };
     getData();
-  }, [token, fetchWithToken]);
+  }, [token, fetchWithToken, isMounted]);
 
 
   return (<>

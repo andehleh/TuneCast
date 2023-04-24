@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
+
 const MainPage = () => {
   const [currentWeather, setCurrentWeather] = useState({});
-  const [currentPlaylist, setCurrentPlaylist] = useState();
+  const [currentPlaylist, setCurrentPlaylist] = useState("");
   const [playlists, setPlaylists] = useState([]);
   const [stateAbr, setStateAbr] = useState([]);
   const [currentStateAbr, setCurrentStateAbr] = useState("");
@@ -42,7 +43,7 @@ const MainPage = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    const weatherUrl = `http://localhost:8000/api/open_weather_api/${currentCity}/${currentStateAbr}`;
+    const weatherUrl = `http://localhost:8000/api/open_weather_api/${currentCity}/${currentStateAbr}/`;
     const response = await fetch(weatherUrl);
     if (response.ok) {
       const data = await response.json();
@@ -56,30 +57,41 @@ const MainPage = () => {
     }
   };
 
-  useEffect( () => {
-    (async() => {
-    const Url = "https://localhost:8000/api/history/";
-    const historyData = {
-      date: new Date().toLocaleDateString(),
-      weather: "Cloudy",
-      playlist: currentPlaylist,
-    };
-    const fetchConfig = {
-      method: "POST",
-      body: JSON.stringify(historyData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    if (token) {
-    const response = await fetchWithToken(Url, fetchConfig);
-    console.log("******************")
-    if (response.ok) {
-      console.log("History Saved");
-    }
-    }}) ();
 
-  }, [currentPlaylist]);
+
+  useEffect (() => {
+    (async () => {
+      try{
+        const weather = currentWeather["weather"][0]["main"]
+        const historyUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/history/`;
+        const historyData = {
+          "date": new Date().toLocaleDateString(),
+          "weather": weather,
+          "playlist": currentPlaylist
+        };
+        const historyHeaders = {
+          "Content-Type": "application/json"
+          // "Authorization": `Bearer ${token}`
+        }
+        const historyOptions = {
+          "body": JSON.stringify(historyData)
+        }
+
+        if (token) {
+        const response = await fetchWithToken(historyUrl, "POST", historyHeaders, historyOptions);
+        if (response.ok) {
+          console.log("History Saved");
+        }
+        }
+      }
+      catch(err){
+        return
+      }
+    }) ();
+
+
+  }, [currentPlaylist])
+
 
 
 
@@ -96,7 +108,7 @@ const MainPage = () => {
 
     try {
       let weatherName = currentWeather["weather"][0]["main"];
-      console.log("******************", currentWeather["weather"][0]["main"]);
+      // console.log("******************", currentWeather["weather"][0]["main"]);
       const findPlaylist = (w) => {
         for (let playlist of playlists) {
           if (playlist.weather === w) {
@@ -109,7 +121,7 @@ const MainPage = () => {
       };
       findPlaylist(weatherName);
     } catch (err) {
-      console.log("no current weather");
+      return;
     }
   }, [currentWeather, playlists]);
 
@@ -176,7 +188,7 @@ const MainPage = () => {
             )}
 
             <div className="input-group mb-3">
-              <input type="text" className="form-control" aria-label="Text input with dropdown button"/>
+              <input onChange={handleCity}type="text" className="form-control" aria-label="Text input with dropdown button"/>
               <select onChange={handleState} className="custom-select" id="inputGroupSelect03">
                 <option value="">Select Your State</option>
                 {stateAbr.map((state) => {
@@ -216,6 +228,12 @@ const MainPage = () => {
             )}
           </div>
           {currentPlaylist && <p>Current Playlist: {currentPlaylist}</p>}
+          {/* <button
+                onClick={saveHistory}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Save History
+          </button> */}
         </div>
       </div>
     </>

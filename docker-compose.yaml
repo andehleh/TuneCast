@@ -30,9 +30,11 @@ services:
     environment:
       SIGNING_KEY: ${SIGNING_KEY}
       MONGO_URL: mongodb://admin:password@mongo
-      MICRO_WEATHER_API_KEY: ${MICRO_WEATHER_API_KEY}
       OPEN_WEATHER_API_KEY: ${OPEN_WEATHER_API_KEY}
       REVERSE_GEOCODE_API_KEY: ${REVERSE_GEOCODE_API_KEY}
+      SPOTIPY_CLIENT_ID: ${SPOTIPY_CLIENT_ID}
+      SPOTIPY_CLIENT_SECRET: ${SPOTIPY_CLIENT_SECRET}
+      SPOTIPY_REDIRECT_URI: ${SPOTIPY_REDIRECT_URI}
   ghi:
     image: node:lts-bullseye
     command: /bin/bash run.sh

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-
+import { useNavigate, Link } from 'react-router-dom';
+import {encode as base64_encode} from 'base-64';
 
 const MainPage = () => {
   const [currentWeather, setCurrentWeather] = useState({});
@@ -12,6 +13,7 @@ const MainPage = () => {
   const [currentCoords, setCurrentCoords] = useState();
   const [currentLocation, setCurrentLocation] = useState();
   const { token, fetchWithToken } = useToken();
+  const navigate = useNavigate()
 
   async function getData() {
     const playlistUrl = "http://localhost:8000/api/playlist/";
@@ -146,6 +148,7 @@ const MainPage = () => {
 
       const locationUrl = `http://localhost:8000/api/open_weather_api/${crd.longitude}_${crd.latitude}`;
       const response = await fetch(locationUrl);
+      console.log("&&&&&&&&&&&&&&&&&&&", response)
       if (response.ok) {
         const data = await response.json();
         setCurrentWeather(data);
@@ -172,6 +175,37 @@ const MainPage = () => {
 
     navigator.geolocation.getCurrentPosition(success, error, options);
   };
+
+  const handleSavePlaylist = async () => {
+    // const playlistId = currentPlaylist.slice(40)
+    const code = window.location.href.slice(28)
+    // console.log("*********************",process.env.REACT_APP_USER_SERVICE_API_HOST)
+    // console.log("&&&&&&&&&&&&&&&&", access_token)
+
+    const spotifyUrl = `http://localhost:8000/api/spotifyToken/${code}`;
+    const settings = {"method": "post"}
+    //   "form": {
+    //     "code": code,
+    //     "redirect_uri": process.env.PUBLIC_URL,
+    //     "grant_type": "authorization_code"
+    //   },
+    //   "headers": {
+    //     "Authorization": "Basic " + b64,
+    //     'Content-type': 'application/x-www-form-urlencoded'
+    //   },
+    //   "json": true
+    //   }
+    // const fetchConfig = {
+    //   method: "PUT",
+    //   body:{"public": false}
+    // }
+    const response = await fetch(spotifyUrl, settings);
+    console.log("%%%%%%%%%%%%%%%%%%%%%",response)
+    if (response.ok) {
+      const data = await response.json();
+      console.log("******************", data)
+    }
+  }
 
   return (
     <>
@@ -228,12 +262,18 @@ const MainPage = () => {
             )}
           </div>
           {currentPlaylist && <p>Current Playlist: {currentPlaylist}</p>}
-          {/* <button
-                onClick={saveHistory}
+          <Link
+                to={`${process.env.REACT_APP_USER_SERVICE_API_HOST}/spotifyLogin/`}
+
+              >
+                Login to Spotify
+              </Link>
+          <button
+                onClick={handleSavePlaylist}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
-                Save History
-          </button> */}
+                Get Spotify Access Token
+              </button>
         </div>
       </div>
     </>

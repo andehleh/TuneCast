@@ -6,7 +6,7 @@ import Signup from "./components/Signup"
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import "./App.css";
 import Nav from './components/Nav';
-// import Test from "./components/Test"
+
 
 function App() {
   return (
@@ -18,7 +18,6 @@ function App() {
             <Route exact path="/login" element={<LoginForm />}></Route>
             <Route exact path="/history" element={<HistoryList />}></Route>
             <Route exact path="/signup" element={<Signup />}></Route>
-            {/* <Route exact path="/test" element={<Test />}></Route> */}
           </Routes>
       </AuthProvider>
     </BrowserRouter>

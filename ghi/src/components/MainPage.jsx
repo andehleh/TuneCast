@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate, Link } from "react-router-dom";
 import { encode as base64_encode } from "base-64";
-import ReactRain from "react-rain-animation";
 import "react-rain-animation/lib/style.css";
 
 const MainPage = () => {
@@ -14,6 +13,7 @@ const MainPage = () => {
   const [currentCity, setCurrentCity] = useState("");
   const [currentCoords, setCurrentCoords] = useState();
   const [currentLocation, setCurrentLocation] = useState();
+  const [accessToken, setAccessToken] = useState("")
   const { token, fetchWithToken } = useToken();
   const navigate = useNavigate();
 
@@ -31,9 +31,58 @@ const MainPage = () => {
     }
   }
 
+  function RandomNum(num) {
+      if (num > 10){
+        num = 10
+      }
+        var maxNumber = num;
+        var randomNumber = Math.floor((Math.random() * maxNumber) + 1);
+        return randomNumber;
+      }
+
   useEffect(() => {
+    const getSpotifyToken = async () => {
+
+      const spotifyUrl = "http://localhost:8000/api/spotifyToken/";
+      const response = await fetch(spotifyUrl);
+      console.log("%%%%%%%%%%%%%%%%%%%%%", response);
+      if (response.ok) {
+        const data = await response.json();
+        setAccessToken(data.access_token)
+        console.log("******************TOKEN", data.access_token);
+      }
+    };
+    getSpotifyToken()
     getData();
   }, []);
+
+
+  useEffect(() => {
+    const getSpotifyPlaylists = async () => {
+      // console.log("access token:", accessToken)
+      // console.log()
+      try {
+        const spotifySearchUrl = `http://localhost:8000/api/spotifySearch/${accessToken}/${currentWeather["weather"][0]["main"]}/`;
+        const response = await fetch(spotifySearchUrl);
+        console.log("%%%%%%%%%%%%%%%%%%%%%", response);
+        if (response.ok) {
+          const data = await response.json();
+          const randomNumber = RandomNum(data.playlists.total)
+          console.log("******************RANDOM NUMBER:", randomNumber)
+          const playlistUrl = data.playlists.items[randomNumber-1]['external_urls']['spotify']
+          // const playlistEmbed = `${playlistUrl.slice(0,25)}embed/${playlistUrl.slice(25)}`
+          setCurrentPlaylist(playlistUrl)
+          console.log("******************PLAYLIST", data);
+        }
+      }
+      catch(err){
+        return
+      }
+    };
+    getSpotifyPlaylists()
+  }, [currentWeather]);
+
+
 
   const handleCity = (e) => {
     const city = e.target.value;
@@ -96,34 +145,34 @@ const MainPage = () => {
     })();
   }, [currentPlaylist]);
 
-  useEffect(() => {
-    // console.log(playlists)
+  // useEffect(() => {
+  //   // console.log(playlists)
 
-    let defaultPlaylist = "";
-    for (let playlist of playlists) {
-      if (playlist.weather === "Everything Else") {
-        defaultPlaylist += playlist.url;
-      }
-    }
+  //   let defaultPlaylist = "";
+  //   for (let playlist of playlists) {
+  //     if (playlist.weather === "Everything Else") {
+  //       defaultPlaylist += playlist.url;
+  //     }
+  //   }
 
-    try {
-      let weatherName = currentWeather["weather"][0]["main"];
-      // console.log("******************", currentWeather["weather"][0]["main"]);
-      const findPlaylist = (w) => {
-        for (let playlist of playlists) {
-          if (playlist.weather === w) {
-            setCurrentPlaylist(playlist.url);
-            break;
-          } else {
-            setCurrentPlaylist(defaultPlaylist);
-          }
-        }
-      };
-      findPlaylist(weatherName);
-    } catch (err) {
-      return;
-    }
-  }, [currentWeather, playlists]);
+  //   try {
+  //     let weatherName = currentWeather["weather"][0]["main"];
+  //     console.log("******************", playlists);
+  //     const findPlaylist = (w) => {
+  //       for (let playlist of playlists) {
+  //         if (playlist.weather === w) {
+  //           setCurrentPlaylist(playlist.url);
+  //           break;
+  //         } else {
+  //           setCurrentPlaylist(defaultPlaylist);
+  //         }
+  //       }
+  //     };
+  //     findPlaylist(weatherName);
+  //   } catch (err) {
+  //     return;
+  //   }
+  // }, [currentWeather, playlists]);
 
   const handleLocation = () => {
     const options = {
@@ -174,14 +223,10 @@ const MainPage = () => {
     navigator.geolocation.getCurrentPosition(success, error, options);
   };
 
-  const handleSavePlaylist = async () => {
-    // const playlistId = currentPlaylist.slice(40)
-    const code = window.location.href.slice(28);
-    // console.log("*********************",process.env.REACT_APP_USER_SERVICE_API_HOST)
-    // console.log("&&&&&&&&&&&&&&&&", access_token)
+  // const handleSpotifyToken = async () => {
 
-    const spotifyUrl = `http://localhost:8000/api/spotifyToken/${code}`;
-    const settings = { method: "post" };
+  //   const spotifyUrl = "http://localhost:8000/api/spotifyToken/";
+    // const settings = { method: "post" };
     //   "form": {
     //     "code": code,
     //     "redirect_uri": process.env.PUBLIC_URL,
@@ -197,17 +242,29 @@ const MainPage = () => {
     //   method: "PUT",
     //   body:{"public": false}
     // }
-    const response = await fetch(spotifyUrl, settings);
+  //   const response = await fetch(spotifyUrl);
+  //   console.log("%%%%%%%%%%%%%%%%%%%%%", response);
+  //   if (response.ok) {
+  //     const data = await response.json();
+  //     setAccessToken(data.access_token)
+  //     console.log("******************TOKEN", data.access_token);
+  //   }
+  // };
+
+
+  const handleSpotifySearch = async () => {
+    const spotifySearchUrl = `http://localhost:8000/api/spotifySearch/${accessToken}/${currentWeather["weather"][0]["main"]}/`;
+    const response = await fetch(spotifySearchUrl);
     console.log("%%%%%%%%%%%%%%%%%%%%%", response);
     if (response.ok) {
       const data = await response.json();
-      console.log("******************", data);
+      // setAccessToken(data.access_token)
+      console.log("******************PLAYLISTS", data);
     }
   };
 
   return (
     <>
-      <ReactRain numDrops="200" />
       <div className="px-4 py-5 my-5 text-center">
         <h1 className="display-5 fw-bold">Tunecast</h1>
         <div className="col-lg-6 mx-auto">
@@ -259,7 +316,7 @@ const MainPage = () => {
               <iframe
                 title="Spotify Embedded Player"
                 style={{ borderRadius: "12px" }}
-                src={`${currentPlaylist}?utm_source=generator&theme=0`}
+                src={`${currentPlaylist.slice(0,25)}embed/${currentPlaylist.slice(25)}?utm_source=generator&theme=0`}
                 width="100%"
                 height="352"
                 frameBorder="0"
@@ -276,10 +333,10 @@ const MainPage = () => {
             Login to Spotify
           </Link>
           <button
-            onClick={handleSavePlaylist}
+            onClick={handleSpotifySearch}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
-            Get Spotify Access Token
+            Get Spotify Playlists
           </button>
         </div>
       </div>

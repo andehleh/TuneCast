@@ -48,7 +48,7 @@ function Nav() {
 
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <NavLink className="navbar-brand" to="#">
-          Navbar
+          TuneCast
         </NavLink>
         <button
           className="navbar-toggler"
@@ -72,21 +72,21 @@ function Nav() {
             {!token && (
               <li className="nav-item active">
                 <NavLink className="nav-link" to="/login/">
-                  Login <span className="sr-only">(current)</span>
+                  Login
                 </NavLink>
               </li>
             )}
             {!token && (
               <li className="nav-item active">
                 <NavLink className="nav-link" to="/signup/">
-                  Signup <span className="sr-only">(current)</span>
+                  Signup
                 </NavLink>
               </li>
             )}
             {token && (
               <li className="nav-item active">
                 <NavLink className="nav-link" to="/" onClick={handleSubmit}>
-                  Logout <span className="sr-only">(current)</span>
+                  Logout
                 </NavLink>
               </li>
             )}

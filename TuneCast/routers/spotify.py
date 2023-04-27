@@ -16,12 +16,19 @@ router = APIRouter()
 # def redirect():
 #   return "redirect"
 
-@router.post('/api/spotifyToken/{code}')
+@router.get('/api/spotifyToken/')
 def getToken(
-  code: str,
   repo: SpotifyRepo = Depends()
 ):
-  return repo.get_token(code)
+  return repo.get_token()
+
+@router.get('/api/spotifySearch/{token}/{weather}/')
+def get_playlist(
+  token: str,
+  weather: str,
+  repo: SpotifyRepo = Depends()
+):
+  return repo.get_playlist(token, weather)
 
 # def create_spotify_oauth():
 #   return SpotifyOAuth(

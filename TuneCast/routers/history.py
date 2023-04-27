@@ -27,7 +27,7 @@ async def list_history(
     }
 
 
-@router.delete('/api/history/{history_id}')
+@router.delete('/api/history/{history_id}/')
 async def delete_history(
     history_id: str,
     repo: HistoryRepo = Depends(),

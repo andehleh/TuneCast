@@ -1,3 +1,31 @@
-## Project Documentation
+### Tunecast
 
-Please put any and all documentation for your project in this folder. Other than the documents that are required at the end of week 13, feel free to organize this however your group sees fit.
+1. Taylor Wills
+2. Andy Lee
+3. Jonathan Has
+4. Eman Zindani
+
+Tunecast is a weather-based playlist generator.
+
+### Intended Market
+
+This is for anyone who wants to explore new tracks and have a playlist generated just for them based on their location and weather rather than them having to spend time curating it.
+
+### Functionality
+
+1. Users on the website can input their city and state or use the current location option which generates their location for them.
+2. Once the location is selected a playlist will be shown depending on the weather at the user's current location.
+3. User's are also able to save the playlist to the history page which displays the date, weather and playlist played.
+
+### Project Initialization
+
+To fully enjoy this application on your local machine, please make sure to follow these steps:
+
+1. Clone the repository down to your local machine
+2. CD into the new project directory
+3. Run docker volume create smelli-db
+4. Run docker compose build
+5. Run docker compose up
+6. Run docker exec -it smelli-belli-inventory-api-1 bash
+7. Run python manage.py loaddata products.json
+8. Exit the container's CLI, and enjoy Smelli Belli to its fullest!

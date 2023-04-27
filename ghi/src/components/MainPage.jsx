@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate, Link } from "react-router-dom";
 import { encode as base64_encode } from "base-64";
-import "react-rain-animation/lib/style.css";
 
 const MainPage = () => {
   const [currentWeather, setCurrentWeather] = useState({});

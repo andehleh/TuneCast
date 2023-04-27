@@ -1,7 +1,8 @@
 import { useState, useEffect} from 'react'
 import { Link } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react"
-import HistoryModal from "./HistoryModal";
+import Table from 'react-bootstrap/Table'
+
 
 function HistoryList() {
   const [history, setHistory] = useState([]);
@@ -41,7 +42,7 @@ function HistoryList() {
 
   return (<>
   {history &&
-    <table>
+    <Table className="table table-dark">
           <thead>
             <tr>
               <th>Date</th>
@@ -61,7 +62,7 @@ function HistoryList() {
                 )
               })}
           </tbody>
-      </table>
+      </Table>
   }
   </>);
 };

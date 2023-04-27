@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import HistoryList from "./History";
+import { NavLink } from "react-router-dom";
 
 function HistoryModal() {
   const [show, setShow] = useState(false);
@@ -10,16 +11,16 @@ function HistoryModal() {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <NavLink className="nav-link" variant="primary" onClick={handleShow} >
         History
-      </Button>
+      </NavLink>
 
       <Modal
         show={show}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
-        size="x10"
+        size="x20"
       >
         <Modal.Header closeButton>
           <Modal.Title>History</Modal.Title>

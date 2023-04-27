@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import HistoryList from "./History";
 import { NavLink } from "react-router-dom";
-import Table from "react-bootstrap/Table";
+import HistoryList from "../History";
 
 function HistoryModal() {
   const [show, setShow] = useState(false);

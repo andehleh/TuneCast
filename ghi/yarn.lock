@@ -8476,11 +8476,6 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-rain-animation@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/react-rain-animation/-/react-rain-animation-1.0.4.tgz"
-  integrity sha512-D+u59rSiv0GikgnhhgyRN1REwtzuCF8Q5/Bj1d418W+bu/XtJ/sGaYPy3kLbt4LWoVp5dac2ffP8vOZPsoK3tQ==
-
 "react-redux@^7.2.1 || ^8.0.2", react-redux@^8.0.5:
   version "8.0.5"
   resolved "https://registry.npmjs.org/react-redux/-/react-redux-8.0.5.tgz"

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import HistoryList from "./History";
 import { NavLink } from "react-router-dom";
-import Table from "react-bootstrap/Table";
+import LoginForm from "../LoginForm";
 
-function HistoryModal() {
+function LoginModal() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -14,20 +13,20 @@ function HistoryModal() {
     <>
       <table>
         <NavLink className="nav-link" variant="primary" onClick={handleShow}>
-          History
+          Login
         </NavLink>
 
         <Modal
           show={show}
           onHide={handleClose}
           size="x20"
-          dialogClassName="history-modal"
+          dialogClassName="login-modal"
         >
           <Modal.Header closeButton>
-            <Modal.Title>History</Modal.Title>
+            <Modal.Title>Login</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <HistoryList />
+            <LoginForm />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -37,7 +36,7 @@ function HistoryModal() {
         </Modal>
         <style>
           {`
-        .history-modal {
+        .login-modal {
             max-width: 75vw;
             max-height: 75vw;
             width: 50%;
@@ -49,4 +48,4 @@ function HistoryModal() {
   );
 }
 
-export default HistoryModal;
+export default LoginModal;

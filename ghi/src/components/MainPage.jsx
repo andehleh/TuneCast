@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import { useNavigate, Link } from 'react-router-dom';
-import {encode as base64_encode} from 'base-64';
+import { useNavigate, Link } from "react-router-dom";
+import { encode as base64_encode } from "base-64";
+import ReactRain from "react-rain-animation";
+import "react-rain-animation/lib/style.css";
 
 const MainPage = () => {
   const [currentWeather, setCurrentWeather] = useState({});
@@ -13,7 +15,7 @@ const MainPage = () => {
   const [currentCoords, setCurrentCoords] = useState();
   const [currentLocation, setCurrentLocation] = useState();
   const { token, fetchWithToken } = useToken();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   async function getData() {
     const playlistUrl = "http://localhost:8000/api/playlist/";
@@ -50,8 +52,8 @@ const MainPage = () => {
     if (response.ok) {
       const data = await response.json();
       const location = {
-        "city": currentCity.toUpperCase(),
-        "principalSubdivisionCode": currentStateAbr,
+        city: currentCity.toUpperCase(),
+        principalSubdivisionCode: currentStateAbr,
       };
       console.log("LOCATION: ", location);
       setCurrentWeather(data);
@@ -59,44 +61,40 @@ const MainPage = () => {
     }
   };
 
-
-
-  useEffect (() => {
+  useEffect(() => {
     (async () => {
-      try{
-        const weather = currentWeather["weather"][0]["main"]
+      try {
+        const weather = currentWeather["weather"][0]["main"];
         const historyUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/history/`;
         const historyData = {
-          "date": new Date().toLocaleDateString(),
-          "weather": weather,
-          "playlist": currentPlaylist
+          date: new Date().toLocaleDateString(),
+          weather: weather,
+          playlist: currentPlaylist,
         };
         const historyHeaders = {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
           // "Authorization": `Bearer ${token}`
-        }
+        };
         const historyOptions = {
-          "body": JSON.stringify(historyData)
-        }
+          body: JSON.stringify(historyData),
+        };
 
         if (token) {
-        const response = await fetchWithToken(historyUrl, "POST", historyHeaders, historyOptions);
-        if (response.ok) {
-          console.log("History Saved");
+          const response = await fetchWithToken(
+            historyUrl,
+            "POST",
+            historyHeaders,
+            historyOptions
+          );
+          if (response.ok) {
+            console.log("History Saved");
+          }
         }
-        }
+      } catch (err) {
+        return;
       }
-      catch(err){
-        return
-      }
-    }) ();
-
-
-  }, [currentPlaylist])
-
-
-
-
+    })();
+  }, [currentPlaylist]);
 
   useEffect(() => {
     // console.log(playlists)
@@ -148,7 +146,7 @@ const MainPage = () => {
 
       const locationUrl = `http://localhost:8000/api/open_weather_api/${crd.longitude}_${crd.latitude}`;
       const response = await fetch(locationUrl);
-      console.log("&&&&&&&&&&&&&&&&&&&", response)
+      console.log("&&&&&&&&&&&&&&&&&&&", response);
       if (response.ok) {
         const data = await response.json();
         setCurrentWeather(data);
@@ -178,12 +176,12 @@ const MainPage = () => {
 
   const handleSavePlaylist = async () => {
     // const playlistId = currentPlaylist.slice(40)
-    const code = window.location.href.slice(28)
+    const code = window.location.href.slice(28);
     // console.log("*********************",process.env.REACT_APP_USER_SERVICE_API_HOST)
     // console.log("&&&&&&&&&&&&&&&&", access_token)
 
     const spotifyUrl = `http://localhost:8000/api/spotifyToken/${code}`;
-    const settings = {"method": "post"}
+    const settings = { method: "post" };
     //   "form": {
     //     "code": code,
     //     "redirect_uri": process.env.PUBLIC_URL,
@@ -200,15 +198,16 @@ const MainPage = () => {
     //   body:{"public": false}
     // }
     const response = await fetch(spotifyUrl, settings);
-    console.log("%%%%%%%%%%%%%%%%%%%%%",response)
+    console.log("%%%%%%%%%%%%%%%%%%%%%", response);
     if (response.ok) {
       const data = await response.json();
-      console.log("******************", data)
+      console.log("******************", data);
     }
-  }
+  };
 
   return (
     <>
+      <ReactRain numDrops="200" />
       <div className="px-4 py-5 my-5 text-center">
         <h1 className="display-5 fw-bold">Tunecast</h1>
         <div className="col-lg-6 mx-auto">
@@ -222,8 +221,17 @@ const MainPage = () => {
             )}
 
             <div className="input-group mb-3">
-              <input onChange={handleCity}type="text" className="form-control" aria-label="Text input with dropdown button"/>
-              <select onChange={handleState} className="custom-select" id="inputGroupSelect03">
+              <input
+                onChange={handleCity}
+                type="text"
+                className="form-control"
+                aria-label="Text input with dropdown button"
+              />
+              <select
+                onChange={handleState}
+                className="custom-select"
+                id="inputGroupSelect03"
+              >
                 <option value="">Select Your State</option>
                 {stateAbr.map((state) => {
                   return (
@@ -263,17 +271,16 @@ const MainPage = () => {
           </div>
           {currentPlaylist && <p>Current Playlist: {currentPlaylist}</p>}
           <Link
-                to={`${process.env.REACT_APP_USER_SERVICE_API_HOST}/spotifyLogin/`}
-
-              >
-                Login to Spotify
-              </Link>
+            to={`${process.env.REACT_APP_USER_SERVICE_API_HOST}/spotifyLogin/`}
+          >
+            Login to Spotify
+          </Link>
           <button
-                onClick={handleSavePlaylist}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Get Spotify Access Token
-              </button>
+            onClick={handleSavePlaylist}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Get Spotify Access Token
+          </button>
         </div>
       </div>
     </>

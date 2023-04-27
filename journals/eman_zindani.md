@@ -15,5 +15,23 @@ watched fastapi videos to refresh on endpoints. Started work on endipoints
 ### 3/30/23
 worked on creating endpoints for history and started to add authentication to it but struggled
 
-## 04/03/23
+### 04/03/23
 added authentication to history endpoints, created playlist endpoints, finished weather endpoints. Backend is working!
+
+### 04/06/23
+finished frontend authentication
+
+### 04/13/23
+worked on creating weather dropdown and got spotify playlist on the mainpage
+
+### 04/17/23
+worked on creating unit tests
+
+### 04/18/23
+implemented weather API on main page
+
+### 04/20/23
+taylor implemented geolocation
+
+### 04/25/23
+watched Taylor try to implement spotify api

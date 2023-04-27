@@ -11,7 +11,6 @@ function HistoryModal() {
 
   return (
     <>
-      <table>
         <NavLink className="nav-link" variant="primary" onClick={handleShow}>
           History
         </NavLink>
@@ -43,7 +42,6 @@ function HistoryModal() {
             height: 50%;
         `}
         </style>
-      </table>
     </>
   );
 }

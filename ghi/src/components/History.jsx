@@ -1,4 +1,5 @@
 import { useState, useEffect} from 'react'
+import { Link } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react"
 import Table from 'react-bootstrap/Table'
 
@@ -25,6 +26,19 @@ function HistoryList() {
     getData();
   }, [token, fetchWithToken, isMounted]);
 
+  const handleDelete = async (e) => {
+    const historyId = e.target.id
+    if (token) {
+        const resp = await fetchWithToken(
+          `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/history/${historyId}/`,
+          "DELETE"
+          );
+        if (resp) {
+            const data = await resp;
+        }
+      };
+  }
+
 
   return (<>
   {history &&
@@ -43,6 +57,7 @@ function HistoryList() {
                       <td>{h.date}</td>
                       <td>{h.weather}</td>
                       <td>{h.playlist}</td>
+                      <td><button onClick={handleDelete} value={h.user_id} id={h.id} className="dropdown-item text-danger" type="button">Delete</button></td>
                   </tr>
                 )
               })}

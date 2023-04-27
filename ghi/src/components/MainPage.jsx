@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate, Link } from "react-router-dom";
 import { encode as base64_encode } from "base-64";
-import ReactRain from "react-rain-animation";
-import "react-rain-animation/lib/style.css";
 
 const MainPage = () => {
   const [currentWeather, setCurrentWeather] = useState({});
@@ -204,11 +202,9 @@ const MainPage = () => {
       console.log("******************", data);
     }
   };
-
   return (
     <>
-      <ReactRain numDrops="200" />
-      <div className="px-4 py-5 my-5 text-center">
+      <div className="px-4 py-5 my-5 text-center ">
         <h1 className="display-5 fw-bold">Tunecast</h1>
         <div className="col-lg-6 mx-auto">
           <p className="lead mb-4">Weather-Based Playlist Generator!</p>
@@ -220,16 +216,17 @@ const MainPage = () => {
               </p>
             )}
 
-            <div className="input-group mb-3">
+            <div className="input-group mb-3 ">
               <input
                 onChange={handleCity}
                 type="text"
-                className="form-control"
+                placeHolder="Enter Your City"
+                className="form-control border border-dark"
                 aria-label="Text input with dropdown button"
               />
               <select
                 onChange={handleState}
-                className="custom-select"
+                className="custom-select me-3 border border-dark"
                 id="inputGroupSelect03"
               >
                 <option value="">Select Your State</option>
@@ -243,13 +240,13 @@ const MainPage = () => {
               </select>
               <button
                 onClick={handleClick}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-blue-500 hover:bg-blue-700 me-3 text-black font-bold py-2 px-4 rounded"
               >
                 Submit
               </button>
               <button
                 onClick={handleLocation}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
               >
                 Use Current Location
               </button>
@@ -277,7 +274,7 @@ const MainPage = () => {
           </Link>
           <button
             onClick={handleSavePlaylist}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className=" ms-3 bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
           >
             Get Spotify Access Token
           </button>

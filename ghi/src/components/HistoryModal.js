@@ -11,16 +11,16 @@ function HistoryModal() {
 
   return (
     <>
-      <NavLink className="nav-link" variant="primary" onClick={handleShow} >
+      <NavLink className="nav-link" variant="primary" onClick={handleShow}>
         History
       </NavLink>
 
       <Modal
         show={show}
         onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
         size="x20"
+        dialogClassName="history-modal"
+        className="color-modal"
       >
         <Modal.Header closeButton>
           <Modal.Title>History</Modal.Title>
@@ -34,6 +34,22 @@ function HistoryModal() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <style>
+        {`
+      .history-modal {
+          max-width: 100vw;
+          max-height: 100vw;
+          width: 50%;
+          height: 50%;
+          background-color: #1D8954 !important;
+
+        }
+        .object{
+          background-color: #1DB954 !important;
+        }
+
+        `}
+      </style>
     </>
   );
 }

@@ -46,9 +46,9 @@ function Nav() {
       //    </div>
       // </nav>
 
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <NavLink className="navbar-brand" to="#">
-          Navbar
+      <nav className="navbar navbar-expand-lg navbar-light bg-secondary">
+        <NavLink className="ms-2 navbar-brand" to="#">
+          Home
         </NavLink>
         <button
           className="navbar-toggler"
@@ -94,7 +94,7 @@ function Nav() {
         </div>
       </nav>
     );
-    
+
 };
 
 

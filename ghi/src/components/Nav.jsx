@@ -97,7 +97,7 @@ function Nav() {
 
 };
 
-  return (
+  // return (
     //      <nav id="header" className="w-full z-30 top-10 py-1 bg-white shadow-lg border-b border-blue-400">
     //    <div className="w-full flex items-center justify-between mt-0 px-6 py-2">
     //       <label htmlFor="menu-toggle" className="cursor-pointer md:hidden block">
@@ -131,54 +131,54 @@ function Nav() {
     //    </div>
     // </nav>
 
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <NavLink className="navbar-brand" to="#">
-        Navbar
-      </NavLink>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav">
-          {token && (
-            <li className="nav-item active">
-              <HistoryModal />
-            </li>
-          )}
+//     <nav className="navbar navbar-expand-lg navbar-light bg-light">
+//       <NavLink className="navbar-brand" to="#">
+//         Navbar
+//       </NavLink>
+//       <button
+//         className="navbar-toggler"
+//         type="button"
+//         data-toggle="collapse"
+//         data-target="#navbarNav"
+//         aria-controls="navbarNav"
+//         aria-expanded="false"
+//         aria-label="Toggle navigation"
+//       >
+//         <span className="navbar-toggler-icon"></span>
+//       </button>
+//       <div className="collapse navbar-collapse" id="navbarNav">
+//         <ul className="navbar-nav">
+//           {token && (
+//             <li className="nav-item active">
+//               <HistoryModal />
+//             </li>
+//           )}
 
-          {!token && (
-            <li className="nav-item active">
-              <NavLink className="nav-link" to="/login/">
-                Login
-              </NavLink>
-            </li>
-          )}
-          {!token && (
-            <li className="nav-item active">
-              <NavLink className="nav-link" to="/signup/">
-                Signup
-              </NavLink>
-            </li>
-          )}
-          {token && (
-            <li className="nav-item active">
-              <NavLink className="nav-link" to="/" onClick={handleSubmit}>
-                Logout
-              </NavLink>
-            </li>
-          )}
-        </ul>
-      </div>
-    </nav>
-  );
-}
+//           {!token && (
+//             <li className="nav-item active">
+//               <NavLink className="nav-link" to="/login/">
+//                 Login
+//               </NavLink>
+//             </li>
+//           )}
+//           {!token && (
+//             <li className="nav-item active">
+//               <NavLink className="nav-link" to="/signup/">
+//                 Signup
+//               </NavLink>
+//             </li>
+//           )}
+//           {token && (
+//             <li className="nav-item active">
+//               <NavLink className="nav-link" to="/" onClick={handleSubmit}>
+//                 Logout
+//               </NavLink>
+//             </li>
+//           )}
+//         </ul>
+//       </div>
+//     </nav>
+//   );
+// }
 
 export default Nav;

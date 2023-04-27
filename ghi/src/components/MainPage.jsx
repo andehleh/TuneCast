@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate, Link } from "react-router-dom";
 import { encode as base64_encode } from "base-64";
-import ReactRain from "react-rain-animation";
-import "react-rain-animation/lib/style.css";
+
 
 const MainPage = () => {
   const [currentWeather, setCurrentWeather] = useState({});
@@ -207,7 +206,6 @@ const MainPage = () => {
 
   return (
     <>
-      <ReactRain numDrops="200" />
       <div className="px-4 py-5 my-5 text-center">
         <h1 className="display-5 fw-bold">Tunecast</h1>
         <div className="col-lg-6 mx-auto">

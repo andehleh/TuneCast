@@ -6,6 +6,8 @@ import Signup from "./components/Signup"
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import "./App.css";
 import Nav from './components/Nav';
+import ForgotPassword from "./components/ForgotPassword";
+import PasswordReset from "./components/PasswordReset";
 
 
 
@@ -19,6 +21,8 @@ function App() {
             <Route exact path="/login" element={<LoginForm />}></Route>
             <Route exact path="/history" element={<HistoryList />}></Route>
             <Route exact path="/signup" element={<Signup />}></Route>
+            <Route exact path="/forgot_password" element={<ForgotPassword />}></Route>
+            <Route exact path="/password_reset" element={<PasswordReset />}></Route>
           </Routes>
       </AuthProvider>
     </BrowserRouter>

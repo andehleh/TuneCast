@@ -1,55 +1,88 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
+import modal from 'react-bootstrap/modal';
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useToken();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     login(username, password);
-    navigate('/');
+    navigate("/");
   };
 
   return (
-    <div className="">
-      <div className="bg-gray-200 rounded w-1/4 py-16 px-12 m-16 flex flex-col items-center justify-center">
-        <img className="rounded-full h-32 w-32" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="user avatar" />
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="userName" className="sr-only">
-              Username
-            </label>
-            <input
-              className="border-solid border border-gray-400 rounded px-2 py-3"
-              type="text"
-              name="username"
-              placeholder="Username"
-              onChange={(e) => setUsername(e.target.value)}
-            />
+    <div className="vh-100 gradient-custom">
+      <div className="container py-5 h-100">
+        <div className="row d-flex justify-content-center align-items-center h-100">
+          <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div
+              className="card bg-dark text-white"
+              style={{ borderRadius: "1rem" }}
+            >
+              <div className="card-body p-5 text-center">
+                <div className="mb-md-5 mt-md-4 pb-5">
+                  <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
+                  <p className="text-white-50 mb-5">
+                    Please enter your login and password!
+                  </p>
+
+                  <div className="form-outline form-white mb-4">
+                    <input
+                      type="text"
+                      id="typeUsernameX"
+                      className="form-control form-control-lg bg-dark text-white border-white"
+                      placeholder="Username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="form-outline form-white mb-4">
+                    <input
+                      type="password"
+                      id="typePasswordX"
+                      className="form-control form-control-lg bg-dark text-white border-white"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+
+              
+
+                  <button
+                    className="btn btn-outline-light btn-lg px-5"
+                    type="submit"
+                    onClick={handleSubmit}
+                  >
+                    Login
+                  </button>
+                </div>
+                <div>
+                  <p className="mb-2">
+                    <Link
+                      to="/forgot_password"
+                      className="text-white-50 fw-bold"
+                    >
+                      Forgot Password?
+                    </Link>
+                  </p>
+                  <p className="mb-0">
+                    Don't have an account?{" "}
+                    <Link to="/signup" className="text-white-50 fw-bold">
+                      Sign Up
+                    </Link>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div>
-            <label htmlFor="userPassword" className="sr-only">
-              Password
-            </label>
-            <input
-              className="border-solid border border-gray-400 rounded px-2 py-3"
-              type="password"
-              name="password"
-              placeholder="Password"
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div className="my-4 flex items-center">
-            <input className="h-4 w-4 mr-2" type="checkbox" id="userRemember" />
-            <label htmlFor="userRemember">Remember me</label>
-          </div>
-            <button className="bg-gray-500 hover:bg-gray-600 text-white font-bold w-full py-3" type="submit">Sign in</button>
-        </form>
+        </div>
       </div>
     </div>
   );

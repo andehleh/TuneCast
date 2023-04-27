@@ -1,24 +1,13 @@
-import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Signup = () => {
+const ForgotPassword = () => {
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const { register } = useToken();
-  const navigate = useNavigate();
-  const accountData = {
-    username: username,
-    password: password,
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    register(
-      accountData,
-      `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts`
-    );
-    navigate("/");
+    // TODO: handle forgot password logic here
+    console.log(`Forgot password for username: ${username}`);
   };
 
   return (
@@ -32,9 +21,11 @@ const Signup = () => {
             >
               <div className="card-body p-5 text-center">
                 <div className="mb-md-5 mt-md-4 pb-5">
-                  <h2 className="fw-bold mb-2 text-uppercase">Sign Up</h2>
+                  <h2 className="fw-bold mb-2 text-uppercase">
+                    Forgot Password
+                  </h2>
                   <p className="text-white-50 mb-5">
-                    Please enter your desired username and password!
+                    Please enter your username to reset your password.
                   </p>
 
                   <div className="form-outline form-white mb-4">
@@ -48,28 +39,19 @@ const Signup = () => {
                     />
                   </div>
 
-                  <div className="form-outline form-white mb-4">
-                    <input
-                      type="password"
-                      id="typePasswordX"
-                      className="form-control form-control-lg bg-dark text-white border-white"
-                      placeholder="Password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  </div>
-
-                  <button
-                    className="btn btn-outline-light btn-lg px-5"
-                    type="submit"
-                    onClick={handleSubmit}
-                  >
-                    Sign Up
-                  </button>
+                  <Link to="/password_reset">
+                    <button
+                      className="btn btn-outline-light btn-lg px-5"
+                      type="submit"
+                      onClick={handleSubmit}
+                    >
+                      Reset Password
+                    </button>
+                  </Link>
                 </div>
                 <div>
                   <p className="mb-0">
-                    Already have an account?{" "}
+                    Remember your password?{" "}
                     <Link to="/login" className="text-white-50 fw-bold">
                       Login
                     </Link>
@@ -84,4 +66,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default ForgotPassword;

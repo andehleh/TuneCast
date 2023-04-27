@@ -23,9 +23,8 @@ To fully enjoy this application on your local machine, please make sure to follo
 
 1. Clone the repository down to your local machine
 2. CD into the new project directory
-3. Run docker volume create smelli-db
+3. Run docker volume create mongo-data
 4. Run docker compose build
 5. Run docker compose up
-6. Run docker exec -it smelli-belli-inventory-api-1 bash
-7. Run python manage.py loaddata products.json
-8. Exit the container's CLI, and enjoy Smelli Belli to its fullest!
+6. Visit http://localhost:3000 in your browser
+7. Exit the container's CLI, and enjoy Tune Cast to its fullest!

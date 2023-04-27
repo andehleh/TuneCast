@@ -10,6 +10,8 @@ Tunecast is a weather-based playlist generator.
 ### Design
 1. [API Design](docs/api_documentation)
 2. [Integrations](docs/integrations.md)
+3. [GHI](docs/wireframes)
+
 ### Intended Market
 
 This is for anyone who wants to explore new tracks and have a playlist generated just for them based on their location and weather rather than them having to spend time curating it.
@@ -29,5 +31,5 @@ To fully enjoy this application on your local machine, please make sure to follo
 3. Run docker volume create mongo-data
 4. Run docker compose build
 5. Run docker compose up
-6. Visit http://localhost:3000 in your browser
+6. Visit http://localhost:3000 in your browser and enjoy Tune Cast to its fullest!
 7. Exit the container's CLI, and enjoy Tune Cast to its fullest!

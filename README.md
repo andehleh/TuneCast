@@ -8,7 +8,7 @@
 Tunecast is a weather-based playlist generator.
 
 ### Design
-1. [API Design](docs/api_documentation)
+1. [API Design](docs/apis.md)
 2. [Integrations](docs/integrations.md)
 3. [GHI](docs/wireframes)
 

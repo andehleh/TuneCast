@@ -7,10 +7,6 @@
 
 Tunecast is a weather-based playlist generator.
 
-### Design
-
-1. [API Design] (docs/api documentation)
-
 ### Intended Market
 
 This is for anyone who wants to explore new tracks and have a playlist generated just for them based on their location and weather rather than them having to spend time curating it.

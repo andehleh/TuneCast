@@ -78,7 +78,7 @@ const MainPage = () => {
   };
 
   // Get Weather based on Current Location
-  const handleCurrentLocation = () => {
+  const handleCurrentLocation = async () => {
     const options = {
       enableHighAccuracy: true,
       timeout: 5000,
@@ -97,8 +97,11 @@ const MainPage = () => {
       const response = await fetch(locationUrl);
       if (response.ok) {
         const data = await response.json();
-        setCurrentWeather(data["weather"][0]["main"]);
+        setCurrentWeather(data["weather"][0]["main"])
+        console.log(data["weather"][0]["main"])
+        console.log(currentWeather)
       }
+
       const currentLocationUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/location/${crd.longitude}_${crd.latitude}`;
       const currentLocationresponse = await fetch(currentLocationUrl);
       if (currentLocationresponse.ok) {
@@ -110,6 +113,7 @@ const MainPage = () => {
           city: cityUpper,
           principalSubdivisionCode: stateSlice,
         };
+
         setCurrentLocation(data);
       }
     }
@@ -149,22 +153,25 @@ const MainPage = () => {
 
   // Fetch Spotify Playlists
   useEffect(() => {
-  const getSpotifyPlaylists = async () => {
-    try {
-      const spotifySearchUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifySearch/${accessToken}/${currentWeather}/`;
-      const response = await fetch(spotifySearchUrl);
-      if (response.ok) {
-        const data = await response.json();
-        const randomNumber = RandomNum(data.playlists.total)
-        const playlistUrl = data.playlists.items[randomNumber-1]['external_urls']['spotify']
-        setCurrentPlaylist(playlistUrl)
+  if(currentWeather !== ""){
+    const getSpotifyPlaylists = async () => {
+      try {
+
+        const spotifySearchUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifySearch/${accessToken}/${currentWeather}/`;
+        const response = await fetch(spotifySearchUrl);
+        if (response.ok) {
+          const data = await response.json();
+          const randomNumber = RandomNum(data.playlists.total)
+          const playlistUrl = data.playlists.items[randomNumber-1]['external_urls']['spotify']
+          setCurrentPlaylist(playlistUrl)
+        }
       }
-    }
-    catch(err){
-      return
-    }
-  };
-  getSpotifyPlaylists()
+      catch(err){
+        return
+      }
+    };
+    getSpotifyPlaylists()
+  }
   }, [currentWeather]);
 
   //  Post Current Playlist and Weather to History

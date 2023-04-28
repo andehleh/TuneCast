@@ -12,13 +12,3 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
-img {
-  width: 5%;
-}
-
-
-.table-container {
-  height: 300px; /* Set the height of the table container */
-  overflow-y: scroll; /* Add a scrollbar for the tbody element */
-}

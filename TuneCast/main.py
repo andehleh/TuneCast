@@ -30,23 +30,31 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.route('/spotifyLogin/')
-def login(self):
-  sp_oauth = create_spotify_oauth()
-  auth_url = sp_oauth.get_authorize_url()
-  return RedirectResponse(auth_url)
+# @app.route('/spotifyLogin/')
+# def login(self):
+#   sp_oauth = create_spotify_oauth()
+#   auth_url = sp_oauth.get_authorize_url()
+#   return RedirectResponse(auth_url)
 
-@app.route('/redirect/')
-def redirect():
-  return "redirect"
+# @app.route('/redirect/')
+# def redirect():
+#   return "redirect"
 
-@app.route('/getPlaylists/')
-def getPlaylists():
-  return "Playlists"
+# @app.route('/getPlaylists/')
+# def getPlaylists():
+#   return "Playlists"
 
-def create_spotify_oauth():
-  return SpotifyOAuth(
-          client_id=os.environ['SPOTIPY_CLIENT_ID'],
-          client_secret=os.environ['SPOTIPY_CLIENT_SECRET'],
-          redirect_uri=os.environ['SPOTIPY_REDIRECT_URI'],
-          scope="user-library-modify")
+# @app.route('/redirect/')
+# def redirect():
+#   return "redirect"
+
+# @app.route('/getPlaylists/')
+# def getPlaylists():
+#   return "Playlists"
+
+# def create_spotify_oauth():
+#   return SpotifyOAuth(
+#           client_id=os.environ['SPOTIPY_CLIENT_ID'],
+#           client_secret=os.environ['SPOTIPY_CLIENT_SECRET'],
+#           redirect_uri=os.environ['SPOTIPY_REDIRECT_URI'],
+#           scope="user-library-modify")

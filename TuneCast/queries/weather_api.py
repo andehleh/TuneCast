@@ -2,22 +2,7 @@ import requests
 import os
 import json
 
-# MICRO_WEATHER_API_KEY = os.environ['MICRO_WEATHER_API_KEY']
 OPEN_WEATHER_API_KEY = os.environ["OPEN_WEATHER_API_KEY"]
-
-# class WeatherAPIRepo:
-#     base_url = "https://api.m3o.com/v1/weather/Now"
-#     def get_current_weather(self, location: str):
-#         res = requests.get(
-#             self.base_url,
-#             headers={
-#               "Content-Type": "application/json",
-#               "Authorization": f"Bearer {MICRO_WEATHER_API_KEY}"
-#             },
-#             params={"location": location}
-#             )
-#         return res.json()
-
 class OpenWeatherRepo:
     geocoder_url = "http://api.openweathermap.org/geo/1.0/direct"
     open_weather_url = "https://api.openweathermap.org/data/2.5/weather"

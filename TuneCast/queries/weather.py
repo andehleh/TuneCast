@@ -8,7 +8,7 @@ class WeatherRepo(Queries):
 
     def create(self, info: WeatherIn) -> WeatherOut:
         weather = info.dict()
-        
+
         self.collection.insert_one(weather)
         weather['id'] = str(weather['_id'])
         return WeatherOut(**weather)
@@ -23,7 +23,7 @@ class WeatherRepo(Queries):
     def delete(self, id: str) -> bool:
         result = self.collection.delete_one({'_id': ObjectId(id)})
         return result.deleted_count == 1
-    
+
     def create_playlist(self, weather_name: str, playlist_url: str) -> Playlist:
         playlist = Playlist(url=playlist_url, weather=weather_name)
         self.collection.insert_one(playlist.dict())

@@ -8,7 +8,6 @@ function HistoryList() {
 
   const [history, setHistory] = useState([]);
   const { token, fetchWithToken } = useToken();
-  // const [search , setSearch] = useState("");
   const [isMounted, setIsMounted] = useState(true);
 
   useEffect(()=> {
@@ -43,12 +42,13 @@ function HistoryList() {
 
   return (<>
   {history &&
-    <Table className="table table-dark">
+    <Table className="table">
           <thead>
             <tr>
               <th>Date</th>
               <th>Weather</th>
               <th>Playlist</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>

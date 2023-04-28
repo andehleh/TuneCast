@@ -22,7 +22,7 @@ function HistoryModal() {
         dialogClassName="history-modal modal-dialog modal-dialog-scrollable"
       >
         <Modal.Header closeButton>
-          <Modal.Title>History</Modal.Title>
+          <Modal.Title>Playlist History</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <HistoryList />
@@ -45,7 +45,8 @@ function HistoryModal() {
         .modal-dialog{
           overflow-y: initial !important
         `}
-      </style>
+
+        </style>
     </>
   );
 }

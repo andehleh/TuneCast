@@ -1,26 +1,41 @@
 import { NavLink } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import HistoryModal from "./Modals/HistoryModal";
-import LoginModal from "./Modals/LoginModal";
 import SignupModal from "./Modals/SignupModal";
 import ForgotPasswordModal from "./ForgotPassword";
+import LoginForm from "./LoginForm";
+import Signup from "./Signup";
 
 
 
 
+import imageContent from './music-cloud.png'
 
 function Nav() {
   const { token } = useToken();
   const { logout } = useToken();
 
-   const handleSubmit = (e) => {
-      e.preventDefault();
-      logout()
-   }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    logout()
+  }
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <img src="/tunecast.jpg" alt="Logo" />
+
+      <nav className="navbar navbar-expand-lg navbar-light ml-1"
+        style={{
+          backgroundColor: 'rgba(252, 252, 252, 0.4)',
+          padding: 0
+        }}
+      >
+
+        <NavLink className="navbar-brand" href="#"
+          style={{
+          marginLeft: '20px'
+          }}
+        >
+          <img src={imageContent} width="40" height="40" className="d-inline-block align-top" alt="TuneCast"/>
+        </NavLink>
         <button
           className="navbar-toggler"
           type="button"
@@ -42,12 +57,12 @@ function Nav() {
 
           {!token && (
             <li className="nav-item active">
-              <LoginModal />
+              <LoginForm />
             </li>
           )}
           {!token && (
             <li className="nav-item active">
-              <SignupModal />
+              <Signup />
             </li>
           )}
           {token && (

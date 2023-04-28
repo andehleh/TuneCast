@@ -30,6 +30,8 @@ code {
   background: linear-gradient(to bottom, #202020, #111119);
 } */
 
+/* RAIN */
+
 .rain {
   position: absolute;
   left: 0;
@@ -188,17 +190,12 @@ body.single-toggle .drop:nth-child(10) {
 
 
 
+/* SUN */
 
-/* body	background: #fbffb9;
-}
-body, html{
-	height: 100%;
-} */
-/* code for the sun  */
 #sun{
 	position: absolute;
 	top: 25%;
-	left: 85%;
+	left: 88%;
 	margin: -150px 0 0 -150px;
 	width: 300px;
 	height: 300px;
@@ -237,7 +234,7 @@ body, html{
 }
 #rings div:nth-child(1){
 	animation-duration: 45s;
-	backgrond: rgba(255, 230, 84, 0.5);
+	background: rgba(255, 230, 84, 0.5);
 	width: 200px;
 	height: 200px;
 	margin: -100px 0 0 -100px;
@@ -289,7 +286,7 @@ body, html{
 		-ms-transform: rotate(360deg);
 	}
 }
-@-o-keygrames rotateR{
+@-o-keyframes rotateR{
 	from{
 		-o-transform: rotate(0deg);
 	}
@@ -349,3 +346,6 @@ body, html{
 /* body{
 	background: #fbff419;
 } */
+
+
+/* CLOUDS */

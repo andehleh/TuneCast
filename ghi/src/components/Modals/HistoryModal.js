@@ -45,8 +45,7 @@ function HistoryModal() {
         .modal-dialog{
           overflow-y: initial !important
         `}
-
-        </style>
+      </style>
     </>
   );
 }

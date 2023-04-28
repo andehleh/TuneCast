@@ -11,33 +11,33 @@ function ForgotPasswordModal() {
 
   return (
     <>
-        <Modal
-          show={show}
-          onHide={handleClose}
-          size="x20"
-          dialogClassName="login-modal"
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Forgot Password</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <ForgotPassword />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-        <style>
-          {`
+      <Modal
+        show={show}
+        onHide={handleClose}
+        size="x20"
+        dialogClassName="login-modal"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Forgot Password</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ForgotPassword />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <style>
+        {`
         .login-modal {
             max-width: 75vw;
             max-height: 75vw;
             width: 50%;
             height: 50%;
         `}
-        </style>
+      </style>
     </>
   );
 }

@@ -2,10 +2,10 @@ from fastapi import APIRouter, Response, Depends, Request, HTTPException, status
 from models import AccountIn, AccountForm, AccountToken, AccountOut, AccountList
 from queries.accounts import AccountsRepo, DuplicateAccountError
 from authenticator import authenticator
-from typing import List
 from pydantic import BaseModel
 
 router = APIRouter()
+
 
 @router.post('/api/accounts/')
 async def create_account(
@@ -25,6 +25,7 @@ async def create_account(
     form = AccountForm(username=info.username, password=info.password)
     token = await authenticator.login(response, request, form, repo)
     return AccountToken(account=account, **token.dict())
+
 
 class Test(BaseModel):
     access_token: str
@@ -47,6 +48,7 @@ async def get_token(
             "access_token": "",
             "type": "Bearer"
         }
+
 
 @router.get('/api/accounts/', response_model=AccountList)
 def get_all(

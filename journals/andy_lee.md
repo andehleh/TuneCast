@@ -42,14 +42,14 @@ created individual unit testing
 
 frontend weather api finished, embedded player changed to display based on specific weather
 
-
-### 4/20/23 
+### 4/20/23
 
 implemented geolocation
 
 ### 4/25/23 - 4/26/23
 
 tried helping Taylor implement spotify api
+
 ### 4/26/23 - 4/27-23
 
 worked on styling all the forms, created new forms, organized the folders, started making forgot password and reset password page

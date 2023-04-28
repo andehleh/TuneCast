@@ -1,96 +1,99 @@
 ### APIs
 
 ### Weather
-   * Method: GET
-   * Path: /api/open_weather_api/{city}/{state}/, /api/open_weather_api/{lon}_{lat}/
+
+- Method: GET
+- Path: /api/open*weather_api/{city}/{state}/, /api/open_weather_api/{lon}*{lat}/
 
 Input:
 
 {
-    "city": string,
-    "state": string
+"city": string,
+"state": string
 }
 
 Output:
 
 {
-    "name": string,
-    "weather": string
+"name": string,
+"weather": string
 }
 
 ### State
-   * Method: GET, POST, DELETE
-   * Path: /api/state/, /api/state/{id}
+
+- Method: GET, POST, DELETE
+- Path: /api/state/, /api/state/{id}
 
 Input:
 
 {
-    "abr": string
+"abr": string
 }
 
 Output:
 
 {
-    "abr": string,
-    "id":string
+"abr": string,
+"id":string
 }
 
 ### Location
-   * Method: GET
-   * Path: /api/location/{lon}_{lat}/
+
+- Method: GET
+- Path: /api/location/{lon}\_{lat}/
 
 Input:
 
 {
-    "lon": number,
-    "lat": number
+"lon": number,
+"lat": number
 }
 
 Output:
 
 {
-    "city": string,
-    "principleSubdivisionCode": string
+"city": string,
+"principleSubdivisionCode": string
 }
 
 ### History
-   * Method: GET, POST, DELETE
-   * Path: /api/history/, /api/history/{history_id}
+
+- Method: GET, POST, DELETE
+- Path: /api/history/, /api/history/{history_id}
 
 Input:
 
 {
-  "date": string,
-  "weather": string,
-  "playlist": string
+"date": string,
+"weather": string,
+"playlist": string
 }
 
 Output:
 
 {
-    "date": string,
-    "weather": string,
-    "playlist": string,
-    "id": string,
-    "user_id": string
+"date": string,
+"weather": string,
+"playlist": string,
+"id": string,
+"user_id": string
 }
-
-
 
 ### Accounts
-   * Method: GET, POST
-   * Path: /api/accounts/
+
+- Method: GET, POST
+- Path: /api/accounts/
 
 Input:
 
 {
-    "username": string,
-    "password": string
+"username": string,
+"password": string
 }
 
 Output:
 
 {
-    "id": string,
-    "username": string,
+"id": string,
+"username": string,
 }

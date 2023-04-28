@@ -2,6 +2,7 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
+import Signup from "./Signup";
 
 
 const LoginForm = () => {
@@ -13,6 +14,8 @@ const LoginForm = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showSignupModal, setShowSignupModal] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -68,15 +71,16 @@ const LoginForm = () => {
           </div>
           <div>
             <p className="mb-2">
-              <a href="#" className="text-white-50 fw-bold">
+              <Link to="/forgot_password" className="text-white-50 fw-bold">
                 Forgot Password?
-              </a>
+              </Link>
             </p>
+
             <p className="mb-0">
               Don't have an account?{" "}
-              <a href="#" className="text-white-50 fw-bold">
+              <Link to="/signup" className="text-white-50 fw-bold">
                 Sign Up
-              </a>
+              </Link>
             </p>
           </div>
         </Modal.Body>

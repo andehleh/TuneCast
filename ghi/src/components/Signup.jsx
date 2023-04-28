@@ -16,8 +16,6 @@ const Signup = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-    
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -83,7 +81,6 @@ const Signup = () => {
             </p>
           </div>
         </Modal.Body>
-        
       </Modal>
     </>
   );

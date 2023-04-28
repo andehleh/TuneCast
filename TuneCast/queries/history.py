@@ -2,10 +2,11 @@ from queries.client import Queries
 from models import HistoryIn, HistoryOut
 from bson.objectid import ObjectId
 
+
 class HistoryRepo(Queries):
     COLLECTION = 'history'
 
-    def create(self, info:HistoryIn, user_id: str) -> HistoryOut:
+    def create(self, info: HistoryIn, user_id: str) -> HistoryOut:
         history = info.dict()
         history['user_id'] = user_id
         self.collection.insert_one(history)
@@ -20,5 +21,6 @@ class HistoryRepo(Queries):
         return history
 
     def delete(self, id: str, user_id: str):
-        result = self.collection.delete_one({'_id': ObjectId(id), 'user_id': user_id})
+        result = self.collection.delete_one(
+            {'_id': ObjectId(id), 'user_id': user_id})
         return result.acknowledged

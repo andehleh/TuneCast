@@ -9,14 +9,15 @@ router = APIRouter()
 
 @router.get('/api/spotifyToken/')
 def getToken(
-  repo: SpotifyRepo = Depends()
+    repo: SpotifyRepo = Depends()
 ):
-  return repo.get_token()
+    return repo.get_token()
+
 
 @router.get('/api/spotifySearch/{token}/{weather}/')
 def get_playlist(
-  token: str,
-  weather: str,
-  repo: SpotifyRepo = Depends()
+    token: str,
+    weather: str,
+    repo: SpotifyRepo = Depends()
 ):
-  return repo.get_playlist(token, weather)
+    return repo.get_playlist(token, weather)

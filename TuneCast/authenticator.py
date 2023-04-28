@@ -2,7 +2,7 @@ import os
 from fastapi import Depends
 from jwtdown_fastapi.authentication import Authenticator
 from queries.accounts import AccountsRepo
-from models import AccountOut,AccountOutWithHashedPassword
+from models import AccountOut, AccountOutWithHashedPassword
 
 
 class MyAuthenticator(Authenticator):

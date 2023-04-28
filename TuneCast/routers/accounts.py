@@ -48,13 +48,6 @@ async def get_token(
             "type": "Bearer"
         }
 
-# @router.get('/api/accounts/{account_id}')
-# def get_one_account(
-#     account_id: str,
-#     repo: AccountOut = Depends()
-# ) -> AccountOut:
-#     return repo.get_one(account_id)
-
 @router.get('/api/accounts/', response_model=AccountList)
 def get_all(
     repo: AccountsRepo = Depends(),

@@ -65,14 +65,11 @@ const MainPage = () => {
       try {
         const spotifySearchUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifySearch/${accessToken}/${currentWeather}/`;
         const response = await fetch(spotifySearchUrl);
-        // console.log("%%%%%%%%%%%%%%%%%%%%%", stateList);
         if (response.ok) {
           const data = await response.json();
           const randomNumber = RandomNum(data.playlists.total)
-          // console.log("******************RANDOM NUMBER:", randomNumber)
           const playlistUrl = data.playlists.items[randomNumber-1]['external_urls']['spotify']
           setCurrentPlaylist(playlistUrl)
-          // console.log("******************PLAYLIST", data);
         }
       }
       catch(err){
@@ -104,7 +101,7 @@ const MainPage = () => {
         city: currentCity.toUpperCase(),
         principalSubdivisionCode: currentStateAbr,
       };
-      setCurrentWeather(data["weather"][0]["main"]);
+      setCurrentWeather(data);
       setCurrentLocation(location);
     //   console.log("LOCATION: ", location);
     //   console.log("WEATHER: ", data)
@@ -136,7 +133,6 @@ const MainPage = () => {
             historyOptions
           );
           if (response.ok) {
-            // console.log("History Saved");
           }
         }
       } catch (err) {
@@ -158,15 +154,10 @@ const MainPage = () => {
         lon: crd.longitude,
         lat: crd.latitude,
       };
-      // console.log("Your current position is:");
-      // console.log(`Latitude : ${crd.latitude}`);
-      // console.log(`Longitude: ${crd.longitude}`);
-      // console.log(`More or less ${crd.accuracy} meters.`);
       setCurrentCoords(lonLat);
 
       const locationUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/open_weather_api/${crd.longitude}_${crd.latitude}`;
       const response = await fetch(locationUrl);
-      // console.log("&&&&&&&&&&&&&&&&&&&", stateList);
       if (response.ok) {
         const data = await response.json();
         setCurrentWeather(data["weather"][0]["main"]);
@@ -183,7 +174,6 @@ const MainPage = () => {
           principalSubdivisionCode: stateSlice,
         };
         setCurrentLocation(data);
-        // console.log("CURRENT LOCATION: ", data);
       }
     }
 
@@ -198,10 +188,8 @@ const MainPage = () => {
   const handleSpotifySearch = async () => {
     const spotifySearchUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifySearch/${accessToken}/${currentWeather}/`;
     const response = await fetch(spotifySearchUrl);
-    // console.log("%%%%%%%%%%%%%%%%%%%%%", response);
     if (response.ok) {
       const data = await response.json();
-      // console.log("******************PLAYLISTS", data);
     }
   };
 

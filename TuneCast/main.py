@@ -30,25 +30,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-# @app.get("/api/launch-details")
-# def launch_details():
-#     return {
-#         "launch_details": {
-#             "year": 2022,
-#             "month": 12,
-#             "day": "9",
-#             "hour": 19,
-#             "min": 0,
-#             "tz:": "PST"
-#         }
-#     }
-
 # @app.route('/spotifyLogin/')
 # def login(self):
 #   sp_oauth = create_spotify_oauth()
 #   auth_url = sp_oauth.get_authorize_url()
 #   return RedirectResponse(auth_url)
+
+# @app.route('/redirect/')
+# def redirect():
+#   return "redirect"
+
+# @app.route('/getPlaylists/')
+# def getPlaylists():
+#   return "Playlists"
 
 # @app.route('/redirect/')
 # def redirect():

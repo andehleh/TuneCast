@@ -72,8 +72,6 @@ const MainPage = () => {
       };
       setCurrentWeather(data);
       setCurrentLocation(location);
-    //   console.log("LOCATION: ", location);
-    //   console.log("WEATHER: ", data)
     }
   };
 
@@ -98,8 +96,6 @@ const MainPage = () => {
       if (response.ok) {
         const data = await response.json();
         setCurrentWeather(data["weather"][0]["main"])
-        console.log(data["weather"][0]["main"])
-        console.log(currentWeather)
       }
 
       const currentLocationUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/location/${crd.longitude}_${crd.latitude}`;

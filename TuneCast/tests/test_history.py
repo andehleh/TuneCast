@@ -61,7 +61,7 @@ def test_list_history():
 def test_create_history():
    app.dependency_overrides[HistoryRepo] = FakeHistoryRepo
    app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
-  
+
    history = {
                'date': 'string',
                'weather': 'string',

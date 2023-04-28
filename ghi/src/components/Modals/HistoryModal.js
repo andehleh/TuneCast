@@ -41,7 +41,7 @@ function HistoryModal() {
             width: 75%;
             height: 75%;
         `}
-        
+
         </style>
     </>
   );

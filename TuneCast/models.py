@@ -14,7 +14,7 @@ class AccountOutWithHashedPassword(AccountOut):
 
 class AccountIn(BaseModel):
     username: str
-    password: str # user's password
+    password: str
 
 
 class AccountForm(BaseModel):
@@ -38,10 +38,9 @@ class WeatherIn(BaseModel):
 class WeatherOut(WeatherIn):
     id: str
 
+
 class WeatherList(BaseModel):
     weather: List[WeatherOut]
-
-
 
 
 class HistoryIn(BaseModel):
@@ -54,16 +53,20 @@ class HistoryOut(HistoryIn):
     id: str
     user_id: str
 
+
 class HistoryList(BaseModel):
     history: List[HistoryOut]
+
 
 class Playlist(BaseModel):
     url: str
     name: str
     weather: str
 
+
 class PlaylistOut(Playlist):
     id: str
+
 
 class WeatherAPIOut(BaseModel):
     location: str
@@ -77,11 +80,14 @@ class OpenWeatherAPIOut(BaseModel):
     name: str
     weather: list
 
+
 class StateIn(BaseModel):
     abr: str
 
+
 class StateOut(StateIn):
     id: str
+
 
 class Location(BaseModel):
     city: str

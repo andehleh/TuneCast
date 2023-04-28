@@ -30,7 +30,9 @@ class OpenWeatherRepo:
             "appid": OPEN_WEATHER_API_KEY,
             "units": "imperial",
         }
-        weather_res = requests.get(self.open_weather_url, params=weather_params)
+        weather_res = requests.get(
+            self.open_weather_url, params=weather_params
+        )
 
         try:
             return weather_res.json()

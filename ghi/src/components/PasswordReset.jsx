@@ -7,7 +7,6 @@ const PasswordReset = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: handle password reset logic here
     console.log(`Reset password to: ${password}`);
   };
 

@@ -1,7 +1,7 @@
 import requests
 import os
 
-REVERSE_GEOCODE_API_KEY = os.environ['REVERSE_GEOCODE_API_KEY']
+REVERSE_GEOCODE_API_KEY = os.environ["REVERSE_GEOCODE_API_KEY"]
 
 
 class LocationRepo:
@@ -11,7 +11,7 @@ class LocationRepo:
         location_params = {
             "latitude": lat,
             "longitude": lon,
-            "key": REVERSE_GEOCODE_API_KEY
+            "key": REVERSE_GEOCODE_API_KEY,
         }
         location_res = requests.get(self.url, params=location_params)
         try:

@@ -9,7 +9,6 @@ import imageContent from "./music-cloud.png";
 const MainPage = () => {
   const [currentPlaylist, setCurrentPlaylist] = useState("");
   const [playlists, setPlaylists] = useState([]);
-  // const [stateAbr, setStateAbr] = useState([]);
   const [currentStateAbr, setCurrentStateAbr] = useState("");
   const [currentCity, setCurrentCity] = useState("");
   const [currentCoords, setCurrentCoords] = useState();

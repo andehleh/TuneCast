@@ -1,5 +1,18 @@
-from fastapi import APIRouter, Response, Depends, Request, HTTPException, status
-from models import AccountIn, AccountForm, AccountToken, AccountOut, AccountList
+from fastapi import (
+    APIRouter,
+    Response,
+    Depends,
+    Request,
+    HTTPException,
+    status,
+)
+from models import (
+    AccountIn,
+    AccountForm,
+    AccountToken,
+    AccountOut,
+    AccountList,
+)
 from queries.accounts import AccountsRepo, DuplicateAccountError
 from authenticator import authenticator
 from pydantic import BaseModel
@@ -7,12 +20,12 @@ from pydantic import BaseModel
 router = APIRouter()
 
 
-@router.post('/api/accounts/')
+@router.post("/api/accounts/")
 async def create_account(
     info: AccountIn,
     request: Request,
     response: Response,
-    repo: AccountsRepo = Depends()
+    repo: AccountsRepo = Depends(),
 ):
     hashed_password = authenticator.hash_password(info.password)
     try:
@@ -35,7 +48,7 @@ class Test(BaseModel):
 @router.get("/token", response_model=AccountToken | Test)
 async def get_token(
     request: Request,
-    account: AccountOut = Depends(authenticator.try_get_current_account_data)
+    account: AccountOut = Depends(authenticator.try_get_current_account_data),
 ) -> AccountToken | Test:
     if account and authenticator.cookie_name in request.cookies:
         return {
@@ -44,16 +57,11 @@ async def get_token(
             "account": account,
         }
     else:
-        return {
-            "access_token": "",
-            "type": "Bearer"
-        }
+        return {"access_token": "", "type": "Bearer"}
 
 
-@router.get('/api/accounts/', response_model=AccountList)
+@router.get("/api/accounts/", response_model=AccountList)
 def get_all(
     repo: AccountsRepo = Depends(),
 ):
-    return {
-        "accounts": repo.get_all()
-    }
+    return {"accounts": repo.get_all()}

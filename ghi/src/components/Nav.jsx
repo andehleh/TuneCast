@@ -5,6 +5,10 @@ import LoginModal from "./Modals/LoginModal";
 import SignupModal from "./Modals/SignupModal";
 import ForgotPasswordModal from "./ForgotPassword";
 
+
+
+
+
 function Nav() {
   const { token } = useToken();
   const { logout } = useToken();
@@ -50,9 +54,7 @@ function Nav() {
       // </nav>
 
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <NavLink className="navbar-brand" to="#">
-          TuneCast
-        </NavLink>
+        <img src="/tunecast.jpg" alt="Logo" />
         <button
           className="navbar-toggler"
           type="button"

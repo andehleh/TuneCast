@@ -47,16 +47,16 @@ def test_list_history():
 
 
 def test_create_history():
-    app.dependency_overrides[HistoryRepo] = FakeHistoryRepo
-    app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
+   app.dependency_overrides[HistoryRepo] = FakeHistoryRepo
+   app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
 
-    history = {
-        'date': 'string',
-                'weather': 'string',
-                'playlist': 'string',
-    }
-    res = client.post('/api/history', json=history)
+   history = {
+               'date': 'string',
+               'weather': 'string',
+               'playlist': 'string',
+   }
+   res = client.post('/api/history', json=history)
 
-    assert res.status_code == 200
+   assert res.status_code == 200
 
-    app.dependency_overrides = {}
+   app.dependency_overrides = {}

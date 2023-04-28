@@ -1,9 +1,9 @@
-from fastapi.testclient import TestClient
-from main import app
-from queries.playlist import PlaylistRepo
-from models import Playlist, PlaylistOut
+# from fastapi.testclient import TestClient
+# from main import app
+# from queries.playlist import PlaylistRepo
+# from models import Playlist, PlaylistOut
 
-client = TestClient(app)
+# client = TestClient(app)
 
 
 class FakePlaylistRepo:

@@ -54,7 +54,7 @@ const stateList = [
   "WA",
   "WV",
   "WI",
-  "WY"
-]
+  "WY",
+];
 
-export { stateList }
+export { stateList };

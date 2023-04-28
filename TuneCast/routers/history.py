@@ -6,6 +6,7 @@ from authenticator import authenticator
 
 router = APIRouter()
 
+
 @router.post('/api/history/', response_model=HistoryOut)
 async def create_history(
     info: HistoryIn,
@@ -14,7 +15,6 @@ async def create_history(
 ):
     history = repo.create(info, user_id=account_data["id"])
     return history
-
 
 
 @router.get('/api/history/', response_model=HistoryList)

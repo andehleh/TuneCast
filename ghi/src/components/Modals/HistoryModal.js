@@ -22,7 +22,7 @@ function HistoryModal() {
           dialogClassName="history-modal"
         >
           <Modal.Header closeButton>
-            <Modal.Title>History</Modal.Title>
+            <Modal.Title>Playlist History</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <HistoryList />
@@ -36,11 +36,12 @@ function HistoryModal() {
         <style>
           {`
         .history-modal {
-            max-width: 75vw;
-            max-height: 75vw;
-            width: 50%;
-            height: 50%;
+            max-width: 100vw;
+            max-height: 100vw;
+            width: 75%;
+            height: 75%;
         `}
+        
         </style>
     </>
   );

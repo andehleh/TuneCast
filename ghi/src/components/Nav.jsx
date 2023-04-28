@@ -1,9 +1,10 @@
 import { NavLink } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import HistoryModal from "./Modals/HistoryModal";
-import LoginModal from "./Modals/LoginModal";
 import SignupModal from "./Modals/SignupModal";
 import ForgotPasswordModal from "./ForgotPassword";
+import LoginForm from "./LoginForm";
+import Signup from "./Signup";
 
 
 
@@ -42,12 +43,12 @@ function Nav() {
 
           {!token && (
             <li className="nav-item active">
-              <LoginModal />
+              <LoginForm />
             </li>
           )}
           {!token && (
             <li className="nav-item active">
-              <SignupModal />
+              <Signup />
             </li>
           )}
           {token && (

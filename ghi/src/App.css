@@ -18,3 +18,7 @@ img {
 }
 
 
+.table-container {
+  height: 300px; /* Set the height of the table container */
+  overflow-y: scroll; /* Add a scrollbar for the tbody element */
+}

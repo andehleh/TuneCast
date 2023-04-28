@@ -43,12 +43,13 @@ function HistoryList() {
 
   return (<>
   {history &&
-    <Table className="table table-dark">
+    <Table className="table">
           <thead>
             <tr>
               <th>Date</th>
               <th>Weather</th>
               <th>Playlist</th>
+              <th>Update</th>
             </tr>
           </thead>
           <tbody>

@@ -11,37 +11,41 @@ function HistoryModal() {
 
   return (
     <>
-        <NavLink className="nav-link" variant="primary" onClick={handleShow}>
-          History
-        </NavLink>
+      <NavLink className="nav-link" variant="primary" onClick={handleShow}>
+        History
+      </NavLink>
 
-        <Modal
-          show={show}
-          onHide={handleClose}
-          size="x20"
-          dialogClassName="history-modal"
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>History</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <HistoryList />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-        <style>
-          {`
+      <Modal
+        show={show}
+        onHide={handleClose}
+        size="x20"
+        dialogClassName="history-modal modal-dialog modal-dialog-scrollable"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>History</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <HistoryList />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <style>
+        {`
         .history-modal {
             max-width: 75vw;
-            max-height: 75vw;
             width: 50%;
-            height: 50%;
+            height: 100%;
+            max-height: 100%;
+            overflow-y: auto !important;
+          }
+        .modal-dialog{
+          overflow-y: initial !important
         `}
-        </style>
+      </style>
     </>
   );
 }

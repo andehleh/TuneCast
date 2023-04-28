@@ -11,37 +11,38 @@ function SignupModal() {
 
   return (
     <>
-        <NavLink className="nav-link" variant="primary" onClick={handleShow}>
-          Sign Up
-        </NavLink>
+      <NavLink className="nav-link" variant="primary" onClick={handleShow}>
+        Sign Up
+      </NavLink>
 
-        <Modal
-          show={show}
-          onHide={handleClose}
-          size="x20"
-          dialogClassName="signup-modal"
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>History</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Signup />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-        <style>
-          {`
+      <Modal
+        show={show}
+        onHide={handleClose}
+        size="x20"
+        dialogClassName="signup-modal"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>History</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Signup />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <style>
+        {`
         .signup-modal {
             max-width: 75vw;
             max-height: 75vw;
             width: 50%;
             height: 50%;
+
         `}
-        </style>
+      </style>
     </>
   );
 }

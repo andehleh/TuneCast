@@ -27,4 +27,4 @@ To fully enjoy this application on your local machine, please make sure to follo
 4. Run docker compose build
 5. Run docker compose up
 6. Visit http://localhost:3000 in your browser
-7. Exit the container's CLI, and enjoy Tune Cast to its fullest!
+7. Exit the container's CLI, and enjoy Tunecast to its fullest!

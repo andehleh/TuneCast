@@ -10,45 +10,20 @@ router = APIRouter()
 async def create_weather(
     info: WeatherIn,
     repo: WeatherRepo = Depends(),
-    # account_data: dict = Depends(authenticator.get_current_account_data)
 ):
     weather = repo.create(info)
     return weather
-
-
-
-
-
-
-# @router.put('/api/weather/{id}')
-# async def update_weather(
-#     weather_id: str,
-#     info: WeatherIn,
-#     repo: WeatherRepo = Depends(),
-#     # account_data: dict = Depends(authenticator.get_current_account_data)
-# ):
-#     return repo.update(weather_id, info)
-
-
-
-
 
 @router.delete('/api/weather/{id}')
 async def delete_weather(
     weather_id: str,
     repo: WeatherRepo = Depends(),
-    # account_data: dict = Depends(authenticator.get_current_account_data)
 ):
     return repo.delete(weather_id)
-
-
-
-
 
 @router.get('/api/weather/', response_model=WeatherList)
 async def list_weather(
     repo: WeatherRepo = Depends(),
-    # account_data: dict = Depends(authenticator.get_current_account_data)
 ):
     return {
         "weather": repo.get_all()

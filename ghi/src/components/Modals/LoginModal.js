@@ -11,7 +11,6 @@ function LoginModal() {
 
   return (
     <>
-      <table>
         <NavLink className="nav-link" variant="primary" onClick={handleShow}>
           Login
         </NavLink>
@@ -43,7 +42,6 @@ function LoginModal() {
             height: 50%;
         `}
         </style>
-      </table>
     </>
   );
 }

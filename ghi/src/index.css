@@ -1,3 +1,7 @@
+html {
+  height: 100vh;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -6,15 +10,342 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: url("https://images.pexels.com/photos/209831/pexels-photo-209831.jpeg?auto=compress&cs=tinysrgb&w=1600");
-  height: 100vh;
+  height: 100vh !important;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-
+  overflow: hidden;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #202020, #111119);
+} */
+
+.rain {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.rain.back-row {
+  display: none;
+  z-index: 1;
+  bottom: 60px;
+  opacity: 0.5;
+  width: 100%;
+}
+
+/* body.back-row-toggle .rain.back-row {
+  display: block;
+} */
+
+.drop {
+  position: absolute;
+  bottom: 100%;
+  width: 15px;
+  height: 120px;
+  pointer-events: none;
+  animation: drop 0.5s linear infinite;
+}
+
+@keyframes drop {
+  0% {
+    transform: translateY(0vh);
+  }
+  75% {
+    transform: translateY(90vh);
+  }
+  100% {
+    transform: translateY(90vh);
+  }
+}
+
+.stem {
+  width: 1px;
+  height: 60%;
+  margin-left: 7px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
+  animation: stem 0.5s linear infinite;
+}
+
+@keyframes stem {
+  0% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.splat {
+  width: 15px;
+  height: 10px;
+  border-top: 2px dotted rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  opacity: 1;
+  transform: scale(0);
+  animation: splat 0.5s linear infinite;
+  display: none;
+}
+
+body.splat-toggle .splat {
+  display: block;
+}
+
+@keyframes splat {
+  0% {
+    opacity: 1;
+    transform: scale(0);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(0);
+  }
+  90% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+.toggles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+
+/* .toggle {
+  position: absolute;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  line-height: 51px;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+} */
+
+/* .toggle:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+} */
+
+/* .toggle:active {
+  background-color: rgba(255, 255, 255, 0.3);
+} */
+
+/* .toggle.active {
+  background-color: rgba(255, 255, 255, 0.4);
+} */
+
+.splat-toggle {
+  top: 20px;
+}
+
+.back-row-toggle {
+  top: 90px;
+  line-height: 12px;
+  padding-top: 14px;
+}
+
+.single-toggle {
+  top: 160px;
+}
+
+body.single-toggle .drop {
+  display: none;
+}
+
+body.single-toggle .drop:nth-child(10) {
+  display: block;
+}
+
+
+
+
+/* body	background: #fbffb9;
+}
+body, html{
+	height: 100%;
+} */
+/* code for the sun  */
+#sun{
+	position: absolute;
+	top: 25%;
+	left: 85%;
+	margin: -150px 0 0 -150px;
+	width: 300px;
+	height: 300px;
+}
+#sun *, #sun *:before, #sun *:after{
+	position: absolute;
+}
+
+/* code for the rings */
+#rings{
+	top: 50%;
+	left: 50%;
+	z-index: 1;
+}
+#rings div:before, #rings div:after{
+	content: "";
+	z-index: 2;
+	top: 0;
+	left: 0;
+	height: inherit;
+	width: inherit;
+	background: inherit;
+}
+#rings div:before{
+	transform: rotate(60deg);
+}
+#rings div:after{
+	transform: rotate(-60deg);
+}
+#rings div:nth-child(even){
+	animation: rotateR 12s infinite linear;
+}
+#rings div:nth-child(odd){
+	animation: rotateL 12s infinite linear;
+	transform: rotate(15deg);
+}
+#rings div:nth-child(1){
+	animation-duration: 45s;
+	backgrond: rgba(255, 230, 84, 0.5);
+	width: 200px;
+	height: 200px;
+	margin: -100px 0 0 -100px;
+}
+#rings div:nth-child(2){
+	animation-duration: 49s;
+	background: rgba(255, 185, 6, 0.5);
+	width: 190px;
+	height: 190px;
+	margin: -95px 0 0 -95px;
+}
+#rings div:nth-child(3){
+	animation-duration: 56s;
+	background: rgba(255, 130, 5, 0.5);
+	width: 180px;
+	height: 180px;
+	margin: -90px 0 0 -90px;
+}
+#ringsv idiv:nth-child(4){
+	animation-duration: 93s;
+	background: rgba(255, 90, 0, 0.5);
+	width: 170px;
+	height: 170px;
+	margin: -85px 0 0 -85px;
+}
+
+/* animations */
+@-webkit-keyframes rotateR{
+	from{
+		-webkit-transform: rotate(0deg);
+	}
+	to{
+		-webkit-transform: rotate(360deg);
+	}
+}
+@-moz-keyframes rotateR{
+	from{
+		-moz-transform: rotate(0deg);
+	}
+	to{
+		-moz-transform: rotate(360deg);
+	}
+}
+@-ms-keyframes rotateR{
+	from{
+		-ms-transform: rotate(0deg);
+	}
+	to{
+		-ms-transform: rotate(360deg);
+	}
+}
+@-o-keygrames rotateR{
+	from{
+		-o-transform: rotate(0deg);
+	}
+	to{
+		-o-transform: rotate(360deg);
+	}
+}
+@keyframes rotateR{
+	from{
+		transform: rotate(0deg);
+	}
+	to{
+		transform: rotate(360deg);
+	}
+}
+@-webkit-keyframes rotateL{
+	from{
+		-webkit-transform: rotate(360deg);
+	}
+	to{
+		-webkit-transform: rotate(0deg);
+	}
+}
+@-moz-keyframes rotateL{
+	from{
+		-moz-transform: rotate(360deg);
+	}
+	to{
+		-webkit-transform: rotate(0deg);
+	}
+}
+@-ms-keyframes rotateL{
+	from{
+		-ms-transform: rotate(360deg);
+	}
+	to{
+		-ms-transform: rotate(0deg);
+	}
+}
+@-o-keyframes rotateL{
+	from{
+		-o-transform: rotate(360deg);
+	}
+	to{
+		-o-transform: rotate(0deg)
+	}
+}
+@keyframes rotateL{
+	from{
+		transform: rotate(360deg);
+	}
+	to{
+		transform: rotate(0deg);
+	}
+}
+
+/* body{
+	background: #fbff419;
+} */

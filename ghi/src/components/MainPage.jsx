@@ -209,6 +209,16 @@ makeItRain()
 
   return (
     <>
+
+      <div id="sun">
+        <div id="rings">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+
       <div className="rain front-row"></div>
       <div className="rain back-row"></div>
 

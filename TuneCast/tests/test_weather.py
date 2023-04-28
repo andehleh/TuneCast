@@ -4,6 +4,7 @@ from queries.weather import WeatherRepo
 
 client = TestClient(app)
 
+
 class FakeWeatherRepo:
     def get_all(self):
         return [
@@ -15,18 +16,17 @@ class FakeWeatherRepo:
         ]
 
 
-
 def test_list_weather():
-    #Arrange
+    # Arrange
     app.dependency_overrides[WeatherRepo] = FakeWeatherRepo
 
-    #Act
+    # Act
     res = client.get('/api/weather/')
     data = res.json()
 
-    #Assert
+    # Assert
     assert res.status_code == 200
     assert type(data['weather']) == list
 
-    #Cleanup
+    # Cleanup
     app.dependency_overrides = {}

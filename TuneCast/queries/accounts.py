@@ -1,15 +1,15 @@
-from bson.objectid import ObjectId
 from queries.client import Queries
-from models import AccountIn, AccountOutWithHashedPassword, AccountOut
+from models import AccountIn, AccountOutWithHashedPassword
 
 
 class DuplicateAccountError(Exception):
     pass
 
+
 class AccountsRepo(Queries):
     COLLECTION = 'accounts'
 
-    def create(self, info:AccountIn, hashed_password: str):
+    def create(self, info: AccountIn, hashed_password: str):
         account = info.dict()
         account['hashed_password'] = hashed_password
         if self.get(account['username']):

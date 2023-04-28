@@ -2,14 +2,11 @@ import React, { useState, useEffect } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate, Link } from "react-router-dom";
 import { encode as base64_encode } from "base-64";
-import { stateList } from './StateList.jsx'
-import { makeItRain } from './rain.js'
-import imageContent from './music-cloud.png'
-
-
+import { stateList } from "./StateList.jsx";
+import { makeItRain } from "./rain.js";
+import imageContent from "./music-cloud.png";
 
 const MainPage = () => {
-
   const [currentPlaylist, setCurrentPlaylist] = useState("");
   const [playlists, setPlaylists] = useState([]);
   // const [stateAbr, setStateAbr] = useState([]);
@@ -17,24 +14,10 @@ const MainPage = () => {
   const [currentCity, setCurrentCity] = useState("");
   const [currentCoords, setCurrentCoords] = useState();
   const [currentLocation, setCurrentLocation] = useState();
-  const [accessToken, setAccessToken] = useState("")
+  const [accessToken, setAccessToken] = useState("");
   const [currentWeather, setCurrentWeather] = useState("");
   const { token, fetchWithToken } = useToken();
   const navigate = useNavigate();
-
-  // async function getData() {
-  //   const playlistUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/playlist/`;
-  //   const stateUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/state/`;
-  //   const playlistResp = await fetch(playlistUrl);
-  //   const stateResp = await fetch(stateUrl);
-
-  //   if (stateResp.ok && playlistResp.ok) {
-  //     const playlistData = await playlistResp.json();
-  //     const stateData = await stateResp.json();
-  //     setPlaylists(playlistData.playlist);
-  //     setStateAbr(stateData.state);
-  //   }
-  // }
 
   function RandomNum(num) {
     if (num > 10) {
@@ -44,8 +27,6 @@ const MainPage = () => {
     var randomNumber = Math.floor(Math.random() * maxNumber + 1);
     return randomNumber;
   }
-
-// ------Handle Changes------
 
   const handleCity = (e) => {
     const city = e.target.value;
@@ -57,10 +38,7 @@ const MainPage = () => {
     setCurrentStateAbr(state);
   };
 
-// ------Handle Clicks------
-
-  // Get Weather based on input City/State Abbreviation
-  const handleInputLocation= async (e) => {
+  const handleInputLocation = async (e) => {
     e.preventDefault();
     const weatherUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/open_weather_api/${currentCity}/${currentStateAbr}/`;
     const response = await fetch(weatherUrl);
@@ -72,13 +50,10 @@ const MainPage = () => {
       };
       setCurrentWeather(data);
       setCurrentLocation(location);
-    //   console.log("LOCATION: ", location);
-    //   console.log("WEATHER: ", data)
     }
   };
 
-  // Get Weather based on Current Location
-  const handleCurrentLocation = () => {
+  const handleCurrentLocation = async () => {
     const options = {
       enableHighAccuracy: true,
       timeout: 5000,
@@ -98,7 +73,10 @@ const MainPage = () => {
       if (response.ok) {
         const data = await response.json();
         setCurrentWeather(data["weather"][0]["main"]);
+        console.log(data["weather"][0]["main"]);
+        console.log(currentWeather);
       }
+
       const currentLocationUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/location/${crd.longitude}_${crd.latitude}`;
       const currentLocationresponse = await fetch(currentLocationUrl);
       if (currentLocationresponse.ok) {
@@ -110,6 +88,7 @@ const MainPage = () => {
           city: cityUpper,
           principalSubdivisionCode: stateSlice,
         };
+
         setCurrentLocation(data);
       }
     }
@@ -121,53 +100,41 @@ const MainPage = () => {
     navigator.geolocation.getCurrentPosition(success, error, options);
   };
 
-
-  // const handleSpotifySearch = async () => {
-  //   const spotifySearchUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifySearch/${accessToken}/${currentWeather}/`;
-  //   const response = await fetch(spotifySearchUrl);
-  //   if (response.ok) {
-  //     const data = await response.json();
-  //   }
-  // };
-
-  // ------USEEFFECTS-----
-
-  // Fetch Spotify Access Token
   useEffect(() => {
     const getSpotifyToken = async () => {
-
       const spotifyUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifyToken/`;
       const response = await fetch(spotifyUrl);
       if (response.ok) {
         const data = await response.json();
-        setAccessToken(data.access_token)
+        setAccessToken(data.access_token);
       }
     };
-    getSpotifyToken()
-    // getData();
+    getSpotifyToken();
   }, []);
 
-  // Fetch Spotify Playlists
   useEffect(() => {
-  const getSpotifyPlaylists = async () => {
-    try {
-      const spotifySearchUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifySearch/${accessToken}/${currentWeather}/`;
-      const response = await fetch(spotifySearchUrl);
-      if (response.ok) {
-        const data = await response.json();
-        const randomNumber = RandomNum(data.playlists.total)
-        const playlistUrl = data.playlists.items[randomNumber-1]['external_urls']['spotify']
-        setCurrentPlaylist(playlistUrl)
-      }
+    if (currentWeather !== "") {
+      const getSpotifyPlaylists = async () => {
+        try {
+          const spotifySearchUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifySearch/${accessToken}/${currentWeather}/`;
+          const response = await fetch(spotifySearchUrl);
+          if (response.ok) {
+            const data = await response.json();
+            const randomNumber = RandomNum(data.playlists.total);
+            const playlistUrl =
+              data.playlists.items[randomNumber - 1]["external_urls"][
+                "spotify"
+              ];
+            setCurrentPlaylist(playlistUrl);
+          }
+        } catch (err) {
+          return;
+        }
+      };
+      getSpotifyPlaylists();
     }
-    catch(err){
-      return
-    }
-  };
-  getSpotifyPlaylists()
   }, [currentWeather]);
 
-  //  Post Current Playlist and Weather to History
   useEffect(() => {
     (async () => {
       try {
@@ -201,18 +168,11 @@ const MainPage = () => {
     })();
   }, [currentPlaylist]);
 
-
-
-// Rain Function
-makeItRain()
-
-
-
-
+  makeItRain();
 
   return (
     <>
-      {currentWeather === "Clear" &&
+      {currentWeather === "Clear" && (
         <div id="sun">
           <div id="rings">
             <div></div>
@@ -221,26 +181,33 @@ makeItRain()
             <div></div>
           </div>
         </div>
-      }
+      )}
 
-      { currentWeather !== "" && currentWeather !== "Clear" &&
-      <div className="rain front-row"></div>
-      }
+      {currentWeather !== "" && currentWeather !== "Clear" && (
+        <div className="rain front-row"></div>
+      )}
       <div className="rain back-row"></div>
       <div
-      className="card mb-3 px-4 py-5 my-5 text-center shadow"
-      style={{
-        width: '50vw',
-        margin: '0 0 0 25vw',
-        backgroundColor: 'rgba(252, 252, 252, 0.4)'
-        }}>
+        className="card mb-3 px-4 py-5 my-5 text-center shadow"
+        style={{
+          width: "50vw",
+          margin: "0 0 0 25vw",
+          backgroundColor: "rgba(252, 252, 252, 0.4)",
+        }}
+      >
         <h1 className="display-5 fw-bold">
           <Link className="navbar-brand" href="#">
-            <img src={imageContent} width="80" height="80" className="d-inline-block align-top" alt="TuneCast"/>
+            <img
+              src={imageContent}
+              width="80"
+              height="80"
+              className="d-inline-block align-top"
+              alt="TuneCast"
+            />
           </Link>
           TuneCast
-          </h1>
-        <div className="col-lg-6 mx-auto" style={{width: '90%'}}>
+        </h1>
+        <div className="col-lg-6 mx-auto" style={{ width: "90%" }}>
           <p className="lead mb-4">Weather-Based Playlist Generator!</p>
           <div>
             {currentLocation && (
@@ -307,7 +274,6 @@ makeItRain()
           </div>
         </div>
       </div>
-
     </>
   );
 };

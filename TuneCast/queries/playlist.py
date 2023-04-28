@@ -3,11 +3,10 @@ from models import Playlist, PlaylistOut
 from bson import ObjectId
 
 
-
 class PlaylistRepo(Queries):
     COLLECTION = 'playlist'
 
-    def create(self, info:Playlist):
+    def create(self, info: Playlist):
         playlist = info.dict()
         self.collection.insert_one(playlist)
         playlist['id'] = str(playlist['_id'])

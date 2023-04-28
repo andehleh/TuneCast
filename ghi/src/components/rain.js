@@ -43,4 +43,5 @@ $('.single-toggle.toggle').on('click', function() {
   makeItRain();
 });
 
-makeItRain()
+
+export { makeItRain }

@@ -6,16 +6,6 @@ from queries.spotify import SpotifyRepo
 
 router = APIRouter()
 
-# @router('/spotifyLogin/')
-# def login():
-#   sp_oauth = create_spotify_oauth()
-#   auth_url = sp_oauth.get_authorize_url()
-#   return RedirectResponse(auth_url)
-
-# @router('/redirect/')
-# def redirect():
-#   return "redirect"
-
 @router.get('/api/spotifyToken/')
 def getToken(
   repo: SpotifyRepo = Depends()

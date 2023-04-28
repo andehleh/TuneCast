@@ -18,6 +18,7 @@ const LoginForm = () => {
     e.preventDefault();
     login(username, password);
     navigate("/");
+    setShow(false);
   };
 
   return (
@@ -43,6 +44,7 @@ const LoginForm = () => {
                 id="typeUsernameX"
                 className="form-control form-control-lg bg-dark text-white border-white"
                 placeholder="Username"
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
 
@@ -52,6 +54,7 @@ const LoginForm = () => {
                 id="typePasswordX"
                 className="form-control form-control-lg bg-dark text-white border-white"
                 placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 

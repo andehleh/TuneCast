@@ -5,10 +5,6 @@ import SignupModal from "./Modals/SignupModal";
 import ForgotPasswordModal from "./ForgotPassword";
 import LoginForm from "./LoginForm";
 import Signup from "./Signup";
-
-
-
-
 import imageContent from './music-cloud.png'
 
 function Nav() {

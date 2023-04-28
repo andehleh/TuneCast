@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 import Signup from "./Signup";
 
-
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

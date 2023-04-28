@@ -71,7 +71,7 @@ const MainPage = () => {
       const response = await fetch(locationUrl);
       if (response.ok) {
         const data = await response.json();
-        setCurrentWeather(data["weather"][0]["main"])
+        setCurrentWeather(data["weather"][0]["main"]);
       }
 
       const currentLocationUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/location/${crd.longitude}_${crd.latitude}`;

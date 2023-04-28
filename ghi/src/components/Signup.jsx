@@ -16,7 +16,7 @@ const Signup = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-    
+
 
 
   const handleSubmit = (e) => {
@@ -31,7 +31,7 @@ const Signup = () => {
   return (
     <>
       <Button variant="" onClick={handleShow}>
-        SignUp
+        Sign Up
       </Button>
 
       <Modal show={show} onHide={handleClose}>
@@ -40,7 +40,7 @@ const Signup = () => {
         </Modal.Header>
         <Modal.Body>
           <div className="mb-md-5 mt-md-4 pb-5">
-            <p className="text-white-50 mb-5">
+            <p className="text-black-50 mb-5 fw-bold">
               Please enter your desired username and password!
             </p>
 
@@ -67,7 +67,7 @@ const Signup = () => {
             </div>
 
             <button
-              className="btn btn-outline-light btn-lg px-5"
+              className="btn btn-outline-dark btn-lg px-5"
               type="submit"
               onClick={handleSubmit}
             >
@@ -83,7 +83,7 @@ const Signup = () => {
             </p>
           </div>
         </Modal.Body>
-        
+
       </Modal>
     </>
   );

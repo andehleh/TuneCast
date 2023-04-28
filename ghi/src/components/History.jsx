@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table'
 
 
 function HistoryList() {
+
   const [history, setHistory] = useState([]);
   const { token, fetchWithToken } = useToken();
   // const [search , setSearch] = useState("");

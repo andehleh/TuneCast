@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate, Link } from "react-router-dom";
 import { encode as base64_encode } from "base-64";
+import $ from "jquery"
+import { stateList } from './StateList.jsx'
+
 
 const MainPage = () => {
   const [currentWeather, setCurrentWeather] = useState({});
@@ -17,8 +20,8 @@ const MainPage = () => {
   const navigate = useNavigate();
 
   async function getData() {
-    const playlistUrl = "http://localhost:8000/api/playlist/";
-    const stateUrl = "http://localhost:8000/api/state/";
+    const playlistUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/playlist/`;
+    const stateUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/state/`;
     const playlistResp = await fetch(playlistUrl);
     const stateResp = await fetch(stateUrl);
 
@@ -42,13 +45,11 @@ const MainPage = () => {
   useEffect(() => {
     const getSpotifyToken = async () => {
 
-      const spotifyUrl = "http://localhost:8000/api/spotifyToken/";
+      const spotifyUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifyToken/`;
       const response = await fetch(spotifyUrl);
-      console.log("%%%%%%%%%%%%%%%%%%%%%", response);
       if (response.ok) {
         const data = await response.json();
         setAccessToken(data.access_token)
-        console.log("******************TOKEN", data.access_token);
       }
     };
     getSpotifyToken()
@@ -58,18 +59,15 @@ const MainPage = () => {
 
   useEffect(() => {
     const getSpotifyPlaylists = async () => {
-      // console.log("access token:", accessToken)
-      // console.log()
       try {
-        const spotifySearchUrl = `http://localhost:8000/api/spotifySearch/${accessToken}/${currentWeather["weather"][0]["main"]}/`;
+        const spotifySearchUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifySearch/${accessToken}/${currentWeather["weather"][0]["main"]}/`;
         const response = await fetch(spotifySearchUrl);
-        console.log("%%%%%%%%%%%%%%%%%%%%%", response);
+        console.log("%%%%%%%%%%%%%%%%%%%%%", stateList);
         if (response.ok) {
           const data = await response.json();
           const randomNumber = RandomNum(data.playlists.total)
           console.log("******************RANDOM NUMBER:", randomNumber)
           const playlistUrl = data.playlists.items[randomNumber-1]['external_urls']['spotify']
-          // const playlistEmbed = `${playlistUrl.slice(0,25)}embed/${playlistUrl.slice(25)}`
           setCurrentPlaylist(playlistUrl)
           console.log("******************PLAYLIST", data);
         }
@@ -95,7 +93,7 @@ const MainPage = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    const weatherUrl = `http://localhost:8000/api/open_weather_api/${currentCity}/${currentStateAbr}/`;
+    const weatherUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/open_weather_api/${currentCity}/${currentStateAbr}/`;
     const response = await fetch(weatherUrl);
     if (response.ok) {
       const data = await response.json();
@@ -144,35 +142,6 @@ const MainPage = () => {
     })();
   }, [currentPlaylist]);
 
-  // useEffect(() => {
-  //   // console.log(playlists)
-
-  //   let defaultPlaylist = "";
-  //   for (let playlist of playlists) {
-  //     if (playlist.weather === "Everything Else") {
-  //       defaultPlaylist += playlist.url;
-  //     }
-  //   }
-
-  //   try {
-  //     let weatherName = currentWeather["weather"][0]["main"];
-  //     console.log("******************", playlists);
-  //     const findPlaylist = (w) => {
-  //       for (let playlist of playlists) {
-  //         if (playlist.weather === w) {
-  //           setCurrentPlaylist(playlist.url);
-  //           break;
-  //         } else {
-  //           setCurrentPlaylist(defaultPlaylist);
-  //         }
-  //       }
-  //     };
-  //     findPlaylist(weatherName);
-  //   } catch (err) {
-  //     return;
-  //   }
-  // }, [currentWeather, playlists]);
-
   const handleLocation = () => {
     const options = {
       enableHighAccuracy: true,
@@ -192,14 +161,14 @@ const MainPage = () => {
       console.log(`More or less ${crd.accuracy} meters.`);
       setCurrentCoords(lonLat);
 
-      const locationUrl = `http://localhost:8000/api/open_weather_api/${crd.longitude}_${crd.latitude}`;
+      const locationUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/open_weather_api/${crd.longitude}_${crd.latitude}`;
       const response = await fetch(locationUrl);
-      console.log("&&&&&&&&&&&&&&&&&&&", response);
+      console.log("&&&&&&&&&&&&&&&&&&&", stateList);
       if (response.ok) {
         const data = await response.json();
         setCurrentWeather(data);
       }
-      const currentLocationUrl = `http://localhost:8000/api/location/${crd.longitude}_${crd.latitude}`;
+      const currentLocationUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/location/${crd.longitude}_${crd.latitude}`;
       const currentLocationresponse = await fetch(currentLocationUrl);
       if (currentLocationresponse.ok) {
         const currentLocationData = await currentLocationresponse.json();
@@ -222,37 +191,9 @@ const MainPage = () => {
     navigator.geolocation.getCurrentPosition(success, error, options);
   };
 
-  // const handleSpotifyToken = async () => {
-
-  //   const spotifyUrl = "http://localhost:8000/api/spotifyToken/";
-    // const settings = { method: "post" };
-    //   "form": {
-    //     "code": code,
-    //     "redirect_uri": process.env.PUBLIC_URL,
-    //     "grant_type": "authorization_code"
-    //   },
-    //   "headers": {
-    //     "Authorization": "Basic " + b64,
-    //     'Content-type': 'application/x-www-form-urlencoded'
-    //   },
-    //   "json": true
-    //   }
-    // const fetchConfig = {
-    //   method: "PUT",
-    //   body:{"public": false}
-    // }
-  //   const response = await fetch(spotifyUrl);
-  //   console.log("%%%%%%%%%%%%%%%%%%%%%", response);
-  //   if (response.ok) {
-  //     const data = await response.json();
-  //     setAccessToken(data.access_token)
-  //     console.log("******************TOKEN", data.access_token);
-  //   }
-  // };
-
 
   const handleSpotifySearch = async () => {
-    const spotifySearchUrl = `http://localhost:8000/api/spotifySearch/${accessToken}/${currentWeather["weather"][0]["main"]}/`;
+    const spotifySearchUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifySearch/${accessToken}/${currentWeather["weather"][0]["main"]}/`;
     const response = await fetch(spotifySearchUrl);
     console.log("%%%%%%%%%%%%%%%%%%%%%", response);
     if (response.ok) {
@@ -261,11 +202,73 @@ const MainPage = () => {
       console.log("******************PLAYLISTS", data);
     }
   };
+
+
+
+  let makeItRain = function() {
+  //clear out everything
+  $('.rain').empty();
+
+  let increment = 0;
+  let drops = "";
+  let backDrops = "";
+
+  while (increment < 100) {
+    //couple random numbers to use for various randomizations
+    //random number between 98 and 1
+    let randoHundo = (Math.floor(Math.random() * (98 - 1 + 1) + 1));
+    //random number between 5 and 2
+    let randoFiver = (Math.floor(Math.random() * (5 - 2 + 1) + 2));
+    //increment
+    increment += randoFiver;
+    //add in a new raindrop with various randomizations to certain CSS properties
+    drops += '<div class="drop" style="left: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+    backDrops += '<div class="drop" style="right: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+  }
+
+  $('.rain.front-row').append(drops);
+  $('.rain.back-row').append(backDrops);
+}
+
+$('.splat-toggle.toggle').on('click', function() {
+  $('body').toggleClass('splat-toggle');
+  $('.splat-toggle.toggle').toggleClass('active');
+  makeItRain();
+});
+
+$('.back-row-toggle.toggle').on('click', function() {
+  $('body').toggleClass('back-row-toggle');
+  $('.back-row-toggle.toggle').toggleClass('active');
+  makeItRain();
+});
+
+$('.single-toggle.toggle').on('click', function() {
+  $('body').toggleClass('single-toggle');
+  $('.single-toggle.toggle').toggleClass('active');
+  makeItRain();
+});
+
+makeItRain()
+
+
+
+
+
   return (
     <>
-      <div className="px-4 py-5 my-5 text-center">
+      <div className="rain front-row"></div>
+      <div className="rain back-row"></div>
+      <div class="splat-toggle toggle"></div>
+
+      <div
+      className="card mb-3 px-4 py-5 my-5 text-center shadow"
+      style={{
+        width: '50vw',
+        margin: '0 0 0 25vw',
+        backgroundColor: 'rgba(252, 252, 252, 0.4)'
+        }}>
         <h1 className="display-5 fw-bold">Tunecast</h1>
-        <div className="col-lg-6 mx-auto">
+        <div className="col-lg-6 mx-auto" style={{width: '90%'}}>
           <p className="lead mb-4">Weather-Based Playlist Generator!</p>
           <div>
             {currentLocation && (
@@ -279,7 +282,7 @@ const MainPage = () => {
               <input
                 onChange={handleCity}
                 type="text"
-                placeHolder="Enter Your City"
+                placeholder="Enter Your City"
                 className="form-control border border-dark"
                 aria-label="Text input with dropdown button"
               />
@@ -289,10 +292,10 @@ const MainPage = () => {
                 id="inputGroupSelect03"
               >
                 <option value="">Select Your State</option>
-                {stateAbr.map((state) => {
+                {stateList.map((state) => {
                   return (
-                    <option value={state.abr} key={state.id}>
-                      {state.abr}
+                    <option value={state} key={state}>
+                      {state}
                     </option>
                   );
                 })}

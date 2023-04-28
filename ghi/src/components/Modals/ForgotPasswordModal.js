@@ -11,7 +11,6 @@ function ForgotPasswordModal() {
 
   return (
     <>
-      <table>
         <Modal
           show={show}
           onHide={handleClose}
@@ -39,7 +38,6 @@ function ForgotPasswordModal() {
             height: 50%;
         `}
         </style>
-      </table>
     </>
   );
 }

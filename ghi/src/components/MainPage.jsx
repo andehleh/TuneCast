@@ -48,7 +48,7 @@ const MainPage = () => {
         city: currentCity.toUpperCase(),
         principalSubdivisionCode: currentStateAbr,
       };
-      setCurrentWeather(data);
+      setCurrentWeather(data["weather"][0]["main"]);
       setCurrentLocation(location);
     }
   };

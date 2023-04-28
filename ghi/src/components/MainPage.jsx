@@ -12,7 +12,7 @@ const MainPage = () => {
 
   const [currentPlaylist, setCurrentPlaylist] = useState("");
   const [playlists, setPlaylists] = useState([]);
-  const [stateAbr, setStateAbr] = useState([]);
+  // const [stateAbr, setStateAbr] = useState([]);
   const [currentStateAbr, setCurrentStateAbr] = useState("");
   const [currentCity, setCurrentCity] = useState("");
   const [currentCoords, setCurrentCoords] = useState();
@@ -22,19 +22,19 @@ const MainPage = () => {
   const { token, fetchWithToken } = useToken();
   const navigate = useNavigate();
 
-  async function getData() {
-    const playlistUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/playlist/`;
-    const stateUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/state/`;
-    const playlistResp = await fetch(playlistUrl);
-    const stateResp = await fetch(stateUrl);
+  // async function getData() {
+  //   const playlistUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/playlist/`;
+  //   const stateUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/state/`;
+  //   const playlistResp = await fetch(playlistUrl);
+  //   const stateResp = await fetch(stateUrl);
 
-    if (stateResp.ok && playlistResp.ok) {
-      const playlistData = await playlistResp.json();
-      const stateData = await stateResp.json();
-      setPlaylists(playlistData.playlist);
-      setStateAbr(stateData.state);
-    }
-  }
+  //   if (stateResp.ok && playlistResp.ok) {
+  //     const playlistData = await playlistResp.json();
+  //     const stateData = await stateResp.json();
+  //     setPlaylists(playlistData.playlist);
+  //     setStateAbr(stateData.state);
+  //   }
+  // }
 
   function RandomNum(num) {
     if (num > 10) {
@@ -45,37 +45,7 @@ const MainPage = () => {
     return randomNumber;
   }
 
-  useEffect(() => {
-    const getSpotifyToken = async () => {
-
-      const spotifyUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifyToken/`;
-      const response = await fetch(spotifyUrl);
-      if (response.ok) {
-        const data = await response.json();
-        setAccessToken(data.access_token)
-      }
-    };
-    getSpotifyToken();
-    getData();
-  }, []);
-
-  useEffect(() => {
-    const getSpotifyPlaylists = async () => {
-      try {
-        const spotifySearchUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifySearch/${accessToken}/${currentWeather}/`;
-        const response = await fetch(spotifySearchUrl);
-        if (response.ok) {
-          const data = await response.json();
-          const randomNumber = RandomNum(data.playlists.total)
-          const playlistUrl = data.playlists.items[randomNumber-1]['external_urls']['spotify']
-          setCurrentPlaylist(playlistUrl)
-        }
-      } catch (err) {
-        return;
-      }
-    };
-    getSpotifyPlaylists();
-  }, [currentWeather]);
+// ------Handle Changes------
 
   const handleCity = (e) => {
     const city = e.target.value;
@@ -87,7 +57,10 @@ const MainPage = () => {
     setCurrentStateAbr(state);
   };
 
-  const handleClick = async (e) => {
+// ------Handle Clicks------
+
+  // Get Weather based on input City/State Abbreviation
+  const handleInputLocation= async (e) => {
     e.preventDefault();
     const weatherUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/open_weather_api/${currentCity}/${currentStateAbr}/`;
     const response = await fetch(weatherUrl);
@@ -104,40 +77,8 @@ const MainPage = () => {
     }
   };
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const weather = currentWeather;
-        const historyUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/history/`;
-        const historyData = {
-          date: new Date().toLocaleDateString(),
-          weather: weather,
-          playlist: currentPlaylist,
-        };
-        const historyHeaders = {
-          "Content-Type": "application/json",
-        };
-        const historyOptions = {
-          body: JSON.stringify(historyData),
-        };
-
-        if (token) {
-          const response = await fetchWithToken(
-            historyUrl,
-            "POST",
-            historyHeaders,
-            historyOptions
-          );
-          if (response.ok) {
-          }
-        }
-      } catch (err) {
-        return;
-      }
-    })();
-  }, [currentPlaylist]);
-
-  const handleLocation = () => {
+  // Get Weather based on Current Location
+  const handleCurrentLocation = () => {
     const options = {
       enableHighAccuracy: true,
       timeout: 5000,
@@ -181,15 +122,88 @@ const MainPage = () => {
   };
 
 
-  const handleSpotifySearch = async () => {
-    const spotifySearchUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifySearch/${accessToken}/${currentWeather}/`;
-    const response = await fetch(spotifySearchUrl);
-    if (response.ok) {
-      const data = await response.json();
+  // const handleSpotifySearch = async () => {
+  //   const spotifySearchUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifySearch/${accessToken}/${currentWeather}/`;
+  //   const response = await fetch(spotifySearchUrl);
+  //   if (response.ok) {
+  //     const data = await response.json();
+  //   }
+  // };
+
+  // ------USEEFFECTS-----
+
+  // Fetch Spotify Access Token
+  useEffect(() => {
+    const getSpotifyToken = async () => {
+
+      const spotifyUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifyToken/`;
+      const response = await fetch(spotifyUrl);
+      if (response.ok) {
+        const data = await response.json();
+        setAccessToken(data.access_token)
+      }
+    };
+    getSpotifyToken()
+    // getData();
+  }, []);
+
+  // Fetch Spotify Playlists
+  useEffect(() => {
+  const getSpotifyPlaylists = async () => {
+    try {
+      const spotifySearchUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/spotifySearch/${accessToken}/${currentWeather}/`;
+      const response = await fetch(spotifySearchUrl);
+      if (response.ok) {
+        const data = await response.json();
+        const randomNumber = RandomNum(data.playlists.total)
+        const playlistUrl = data.playlists.items[randomNumber-1]['external_urls']['spotify']
+        setCurrentPlaylist(playlistUrl)
+      }
+    }
+    catch(err){
+      return
     }
   };
+  getSpotifyPlaylists()
+  }, [currentWeather]);
+
+  //  Post Current Playlist and Weather to History
+  useEffect(() => {
+    (async () => {
+      try {
+        const weather = currentWeather;
+        const historyUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/history/`;
+        const historyData = {
+          date: new Date().toLocaleDateString(),
+          weather: weather,
+          playlist: currentPlaylist,
+        };
+        const historyHeaders = {
+          "Content-Type": "application/json",
+        };
+        const historyOptions = {
+          body: JSON.stringify(historyData),
+        };
+
+        if (token) {
+          const response = await fetchWithToken(
+            historyUrl,
+            "POST",
+            historyHeaders,
+            historyOptions
+          );
+          if (response.ok) {
+          }
+        }
+      } catch (err) {
+        return;
+      }
+    })();
+  }, [currentPlaylist]);
 
 
+
+// Rain Function
 makeItRain()
 
 
@@ -259,13 +273,13 @@ makeItRain()
                 })}
               </select>
               <button
-                onClick={handleClick}
+                onClick={handleInputLocation}
                 className="bg-blue-500 hover:bg-blue-700 me-3 text-black font-bold py-2 px-4 rounded"
               >
                 Submit
               </button>
               <button
-                onClick={handleLocation}
+                onClick={handleCurrentLocation}
                 className="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
               >
                 Use Current Location

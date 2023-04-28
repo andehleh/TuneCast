@@ -35,3 +35,9 @@ taylor implemented geolocation
 
 ### 04/25/23
 watched Taylor try to implement spotify api
+
+### 04/27/23
+updated the readme file, history, login and siunup were made into modals, main page stylization
+
+### 04/28/23
+re-did unit tests, last minute styling and turning in project

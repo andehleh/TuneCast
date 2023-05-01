@@ -72,14 +72,6 @@ const Signup = () => {
               Sign Up
             </button>
           </div>
-          <div>
-            <p className="mb-0">
-              Already have an account?{" "}
-              <Link to="/login" className="text-white-50 fw-bold">
-                Login
-              </Link>
-            </p>
-          </div>
         </Modal.Body>
       </Modal>
     </>

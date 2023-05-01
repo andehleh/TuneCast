@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import { useNavigate, Link } from "react-router-dom";
-import { encode as base64_encode } from "base-64";
+import { Link } from "react-router-dom";
 import { stateList } from "./StateList.jsx";
 import { makeItRain } from "./rain.js";
 import imageContent from "./music-cloud.png";
 
 const MainPage = () => {
   const [currentPlaylist, setCurrentPlaylist] = useState("");
-  const [playlists, setPlaylists] = useState([]);
   const [currentStateAbr, setCurrentStateAbr] = useState("");
   const [currentCity, setCurrentCity] = useState("");
-  const [currentCoords, setCurrentCoords] = useState();
   const [currentLocation, setCurrentLocation] = useState();
   const [accessToken, setAccessToken] = useState("");
   const [currentWeather, setCurrentWeather] = useState("");
   const { token, fetchWithToken } = useToken();
-  const navigate = useNavigate();
 
   function RandomNum(num) {
     if (num > 10) {
@@ -61,17 +57,16 @@ const MainPage = () => {
 
     async function success(pos) {
       const crd = pos.coords;
-      const lonLat = {
-        lon: crd.longitude,
-        lat: crd.latitude,
-      };
-      setCurrentCoords(lonLat);
 
       const locationUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/open_weather_api/${crd.longitude}_${crd.latitude}`;
       const response = await fetch(locationUrl);
       if (response.ok) {
         const data = await response.json();
-        setCurrentWeather(data["weather"][0]["main"]);
+        if (data["weather"][0]["main"] === "Clear"){
+          setCurrentWeather("Sunny");
+        } else {
+          setCurrentWeather("Rainy")
+        }
       }
 
       const currentLocationUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/location/${crd.longitude}_${crd.latitude}`;
@@ -214,18 +209,36 @@ const MainPage = () => {
               </p>
             )}
 
+            <button
+                onClick={handleCurrentLocation}
+                className="btn btn-outline-dark"
+              >
+                Use Current Location
+            </button>
+            <div>-OR-</div>
+
             <div className="input-group mb-3 ">
               <input
                 onChange={handleCity}
                 type="text"
+                id="CityInput"
                 placeholder="Enter Your City"
                 className="form-control border border-dark"
                 aria-label="Text input with dropdown button"
+                style={{
+                  backgroundColor: "rgba(252, 252, 252, 0)",
+                  color: "black",
+                  minWidth: "1vw"
+                }}
               />
               <select
                 onChange={handleState}
-                className="custom-select me-3 border border-dark"
+                className="form-control border border-dark"
                 id="inputGroupSelect03"
+                style={{
+                  backgroundColor: "rgba(252, 252, 252, 0)",
+                  maxWidth: "11vw"
+                }}
               >
                 <option value="">Select Your State</option>
                 {stateList.map((state) => {
@@ -238,15 +251,10 @@ const MainPage = () => {
               </select>
               <button
                 onClick={handleInputLocation}
-                className="bg-blue-500 hover:bg-blue-700 me-3 text-black font-bold py-2 px-4 rounded"
+                className="btn btn-outline-dark"
+                type="button"
               >
                 Submit
-              </button>
-              <button
-                onClick={handleCurrentLocation}
-                className="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
-              >
-                Use Current Location
               </button>
             </div>
 

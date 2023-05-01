@@ -57,7 +57,7 @@ function HistoryList() {
                 <tr key={h.id}>
                   <td>{h.date}</td>
                   <td>{h.weather}</td>
-                  <td>{h.playlist}</td>
+                  <td><Link to={h.playlist} target="_blank">{h.playlist}</Link></td>
                   <td>
                     <button
                       onClick={handleDelete}

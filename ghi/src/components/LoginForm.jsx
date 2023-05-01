@@ -2,7 +2,7 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
-import Signup from "./Signup";
+import SignupModal from "./Modals/SignupModal";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -35,7 +35,6 @@ const LoginForm = () => {
         </Modal.Header>
         <Modal.Body>
           <div className="mb-md-5 mt-md-4 pb-5">
-            <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
             <p className="text-black-50 mb-5 fw-bold">
               Please enter your login and password!
             </p>
@@ -68,7 +67,7 @@ const LoginForm = () => {
               Login
             </button>
           </div>
-          <div>
+          {/* <div>
             <p className="mb-2">
               <Link to="/forgot_password" className="text-white-50 fw-bold">
                 Forgot Password?
@@ -77,17 +76,12 @@ const LoginForm = () => {
 
             <p className="mb-0">
               Don't have an account?{" "}
-              <Link to="/signup" className="text-white-50 fw-bold">
-                Sign Up
+              <Link to="/signup/" className="text-black-50 fw-bold">
+                <SignupModal />
               </Link>
             </p>
-          </div>
+          </div> */}
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );
